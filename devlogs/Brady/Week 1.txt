@@ -1,0 +1,2 @@
+Achievements:
+-Setup the repository and added a base Android Studio project
