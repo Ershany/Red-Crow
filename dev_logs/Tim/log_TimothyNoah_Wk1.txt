@@ -1,0 +1,6 @@
+Duties:
+  Researched basic Encryption.
+  Started making an encrypt and decrypt
+  Researched similar apps
+
+Total Time: 45 min
