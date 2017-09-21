@@ -2,4 +2,4 @@ Achievements:
 -Setup the repository and added a base Android Studio project
 -Studied apps with similar concepts and features
 
-Total: 1 hour
+Total Time: 1 hour
