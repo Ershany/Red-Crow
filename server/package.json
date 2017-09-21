@@ -1,0 +1,24 @@
+{
+  "name": "blitz_sms",
+  "version": "1.0.0",
+  "description": "A server that handles responding to internet requests via sms.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ershany/Red-Crow.git"
+  },
+  "author": "Michael Maxwell",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Ershany/Red-Crow/issues"
+  },
+  "homepage": "https://github.com/Ershany/Red-Crow#readme",
+  "dependencies": {
+    "express": "^4.15.4",
+    "ngrok": "^2.2.22",
+    "twilio": "^3.6.7"
+  }
+}
