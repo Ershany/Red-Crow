@@ -18,6 +18,7 @@
   "homepage": "https://github.com/Ershany/Red-Crow#readme",
   "dependencies": {
     "express": "^4.15.4",
+    "mysql": "^2.14.1",
     "ngrok": "^2.2.22",
     "twilio": "^3.6.7"
   }

@@ -1,7 +1,20 @@
+const mysql = require('mysql')
 const express = require('express')
 const MessagingResponse = require('twilio').twiml.MessagingResponse
 
 const app = express()
+
+var con = mysql.createConnection({
+	host: 'localhost',
+	user: 'root',
+	password: 'potato'
+})
+
+con.connect((err) => {
+	if(err)
+		throw err
+	console.log('connected')
+})
 
 // Change to a POST request?
 app.get('/sms', (req, res) => {
