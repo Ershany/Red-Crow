@@ -1,0 +1,4 @@
+Achievements:
+-Added basic UI so we can start using the app
+
+Total: 1 hour
