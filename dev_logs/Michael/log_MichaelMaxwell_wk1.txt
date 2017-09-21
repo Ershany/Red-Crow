@@ -1,0 +1,6 @@
+Duties:
+	Research other similar applications
+	Setup Node.js server with a base Twilio interface
+	Create Twilio account and register a phone number with SMS capabilities
+
+Total Time: 30 minutes
