@@ -1,0 +1,6 @@
+Duties:
+	Setup a simple MySQL connection from the server
+	Made a quick guide for others to install a MySQL server locally
+	Planned the formatting of outgoing messages
+
+Total Time: 2 hours
