@@ -6,7 +6,12 @@ public class encryption{
 
 	private ArrayList<Character> message = new ArrayList<Character>();
 	private int key;//??????
-
+	
+	/*
+	Name: toString()
+	Purpose: Needed a way to make the array back to a string
+	In/outs: 
+	*/
 	@Override
 	public String toString() {
 		String s = "";
@@ -15,7 +20,12 @@ public class encryption{
 		}
 		return s;	  
 	}
-	
+	/*
+	Name: encryption(s,k)
+	Purpose: Basic Constructor
+	In/outs: s -> String -> in -> the message that is to be passed
+		 k -> int -> in -> the 'key', will be the last 3 numbers of the phone
+	*/
 	public encryption(String s, int k){
 		for (int i = 0; i < s.length() ; i++) {
 			//System.out.println(s.toCharArray()[i]);
@@ -28,10 +38,20 @@ public class encryption{
 	
 	}
 	
+	/*
+	Name: getMessage()
+	Purpose: public function to get the message from the encryption
+	In/outs: 
+	*/
 	public String getMessage() {
 		 return this.toString();
 	 }
 	
+	/*
+	Name: toDecrypt()
+	Purpose: Called on the message, to decrypt the message
+	In/outs: 
+	*/
 	protected void toDecrypt() {
 		for (int i = 0; i != this.message.size(); i++) {
 			int change = this.message.get(i);
@@ -49,6 +69,11 @@ public class encryption{
 		this.split();
 	}
 	
+	/*
+	Name: toEncrypt()
+	Purpose: called on the message to encrypt it
+	In/outs: 
+	*/
 	protected void toEncrypt(){
 		for (int a = 0;a != this.message.size();a ++) {
 			int change = this.message.get(a);
@@ -73,6 +98,11 @@ public class encryption{
 	    
 	  }
 	  
+	/*
+	Name: slipt()
+	Purpose: will split the array into smaller arrays (8 chars) so it can be fliped
+	In/outs: 
+	*/
 	  private void split() {
 		  int a,b;
 		  
@@ -97,6 +127,11 @@ public class encryption{
 		  }
 	  }
 	  
+	/*
+	Name: flips(tmp)
+	Purpose: Will filp the tmp list
+	In/outs: tmp -> List<Char> -> in/out -> flips the list.
+	*/
 	  private static void flips(List<Character> tmp) {
 		  //char tmp;
 		  Collections.reverse(tmp);
@@ -109,7 +144,7 @@ public class encryption{
 		  }*/
 	  }
 
-	  
+	  /*
 	  public static void main(String[] args){
 		ArrayList<Character>z = new ArrayList<Character>();
 		for (int i = 0; i < 8; i++){
@@ -127,6 +162,6 @@ public class encryption{
 	    System.out.println(s.message);
 	
 	    
-	  }
+	  }*/
 	
 	}
