@@ -2,5 +2,6 @@ Achievements:
 -Added basic UI so we can start using the app
 -Added basic support for sending, receiving, and reading SMS and their permissions
 -Added icons and their corresponding mipmaps
+-Designed the db schema
 
-Total Time: 4 hours
+Total Time: 6 hours

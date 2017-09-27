@@ -1,0 +1,5 @@
+Achievements:
+-Setup node frameworks
+-Setup Node ORM on the server side along with implementation of our database
+
+Total Time: 3 hours
