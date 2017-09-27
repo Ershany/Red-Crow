@@ -1,6 +1,7 @@
 'use strict'
 
 const mysql = require('mysql')
+const orm = require('orm')
 const express = require('express')
 const winston = require('winston') // make a seperate logger file?
 const MessagingResponse = require('twilio').twiml.MessagingResponse
@@ -26,6 +27,48 @@ con.connect((err) => {
 	if(err)
 		throw err
 	winston.info('Connected to MySQL Database')
+})
+
+// TODO: Add foreign key relationships
+orm.connect("mysql://root:potato@localhost/smsblitz", function (err, db) {
+	if(err) throw err
+	
+	// Define tables
+	var User = db.define("User", {
+		id : { type: 'serial', key: true },
+		phonenumber : { type: 'text', size: 20, required: true, index: true }, // unique: true
+		blacklisted : { type: 'boolean', defaultValue: false }
+	})
+	
+	var Message = db.define("Message", {
+		id : { type: 'serial', key: true },
+		timestamp : { type: 'date', time: true, required: true, defaultValue: new Date() }
+	})
+	
+	var ServerSearchMessage = db.define("ServerSearchMessage", {
+		id : { type: 'serial', key: true },
+		response : { type: 'text', required: true }
+	})
+	ServerSearchMessage.hasOne("message", Message, {required: true});
+	
+	var ClientSearchMessage = db.define("ClientSearchMessage", {
+		id : { type: 'serial', key: true },
+		query : { type: 'text', required: true }
+	})
+	ClientSearchMessage.hasOne("message", Message, {required: true});
+	
+	// Add tables to the db
+	db.sync(function(err) {
+		if(err) throw err
+		
+		// Add row just for testing
+		//User.create({ phonenumber: "613-633-0136"}, function(err) {
+		//	if(err) throw err
+		//})
+		//Message.create({}, function(err) {
+		//	if(err) throw err
+		//})
+	})
 })
 
 // Change to a POST request?
