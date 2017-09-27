@@ -1,0 +1,5 @@
+Duties:
+	Setup App Development environment
+  Added ad support
+
+Total Time: 2 hours
