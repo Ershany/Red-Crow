@@ -1,5 +1,5 @@
 import java.util.Scanner;
-
+//Just a basic example of how the messages should be used with encryption
 public class Message extends encryption{
   
   public static Scanner sc = new Scanner(System.in);
