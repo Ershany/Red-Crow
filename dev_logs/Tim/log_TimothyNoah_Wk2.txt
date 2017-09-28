@@ -1,0 +1,7 @@
+Duties:
+  Research more different encryption methods.
+  Put Basic encryption research into practice.
+  Finish the encryption code.
+  Finish the decryption code.
+
+Total Time: 5 hours
