@@ -1,10 +1,10 @@
 'use strict'
 
-const mysql = require('mysql')
+const compression = require('compression')
 const orm = require('orm')
 const express = require('express')
-const winston = require('winston') // make a seperate logger file?
 const MessagingResponse = require('twilio').twiml.MessagingResponse
+const log = require('./log')
 
 const PORT = 9001
 const app = express()
@@ -14,82 +14,71 @@ const ERROR_CODES = {
 	DATA: 2
 }
 
-var con = mysql.createConnection({
-	host: 'localhost',
-	user: 'root',
-	password: 'potato'
-})
+app.use(compression())
 
-// google search api key
-// AIzaSyD62XwkP-5dwJ6eaewoySIqfYvjctvAGKs
-
-con.connect((err) => {
-	if(err)
-		throw err
-	winston.info('Connected to MySQL Database')
-})
+// google search api key: AIzaSyD62XwkP-5dwJ6eaewoySIqfYvjctvAGKs
 
 // TODO: Add foreign key relationships
-orm.connect("mysql://root:potato@localhost/smsblitz", function (err, db) {
+orm.connect('mysql://root:potato@localhost/smsblitz', (err, db) => {
 	if(err) throw err
+	log.info('Connected to MySQL Database')
 	
 	// Define tables
-	var User = db.define("User", {
-		id : { type: 'serial', key: true },
-		phonenumber : { type: 'text', size: 20, required: true, index: true }, // unique: true
-		blacklisted : { type: 'boolean', defaultValue: false }
+	var User = db.define('User', {
+		id: { type: 'serial', key: true },
+		phonenumber: { type: 'text', size: 20, required: true, index: true }, // unique: true
+		blacklisted: { type: 'boolean', defaultValue: false }
 	})
 	
-	var Message = db.define("Message", {
-		id : { type: 'serial', key: true },
-		timestamp : { type: 'date', time: true, required: true, defaultValue: new Date() }
+	var Message = db.define('Message', {
+		id: { type: 'serial', key: true },
+		timestamp: { type: 'date', time: true, required: true, defaultValue: new Date() }
 	})
 	
-	var ServerSearchMessage = db.define("ServerSearchMessage", {
-		id : { type: 'serial', key: true },
-		response : { type: 'text', required: true }
+	var ServerSearchMessage = db.define('ServerSearchMessage', {
+		id: { type: 'serial', key: true },
+		response: { type: 'text', required: true }
 	})
-	ServerSearchMessage.hasOne("message", Message, {required: true});
+	ServerSearchMessage.hasOne('message', Message, {required: true});
 	
-	var ClientSearchMessage = db.define("ClientSearchMessage", {
-		id : { type: 'serial', key: true },
-		query : { type: 'text', required: true }
+	var ClientSearchMessage = db.define('ClientSearchMessage', {
+		id: { type: 'serial', key: true },
+		query: { type: 'text', required: true }
 	})
-	ClientSearchMessage.hasOne("message", Message, {required: true});
+	ClientSearchMessage.hasOne('message', Message, {required: true});
 	
 	// Add tables to the db
-	db.sync(function(err) {
+	db.sync((err) => {
 		if(err) throw err
 		
 		// Add row just for testing
-		//User.create({ phonenumber: "613-633-0136"}, function(err) {
-		//	if(err) throw err
-		//})
-		//Message.create({}, function(err) {
-		//	if(err) throw err
-		//})
+		// User.create({ phonenumber: '613-633-0136'}, (err) => {
+		// 	if(err) throw err
+		// })
+		// Message.create({}, (err) => {
+		// 	if(err) throw err
+		// })
 	})
 })
 
-// Change to a POST request?
 app.get('/sms', (req, res) => {
-	winston.info(new Date().toLocaleTimeString(), '- Received SMS:', req.query.Body)
-	winston.info(req.query)
+	log.info('Received SMS:', req.query.Body)
+	// log.info(req.query)
 
 	if(!(req && req.query && req.query.Body)) {
-		winston.warn('No Query Received')
+		log.warn('No Query Received')
 		return res.sendStatus(500)
 	}
 
 	var decoded = decode(req.query.Body)
 
 	if(decoded.length < 4) {
-		winston.warn('Received Insufficient Data')
+		log.warn('Received Insufficient Data')
 		return res.sendStatus(500)
 	}
 
 	if(!decoded.startsWith('E')) {
-		winston.warn('Check Byte Fail')
+		log.warn('Check Byte Fail')
 		return res.sendStatus(500)
 	}
 
@@ -99,11 +88,11 @@ app.get('/sms', (req, res) => {
 	let reply = 'Unknown Command'
 	switch(app_id) {
 		case '0': // 0
-			winston.info('Google Search Request: %s', msg_body)
+			log.info('Google Search Request: %s', msg_body)
 			reply = 'cats are great, ' + msg_body
 			break;
 		default:
-			winston.warm('Unimplemented Application')
+			log.warn('Unimplemented Application')
 			break;
 	}
 
@@ -118,5 +107,5 @@ function decode(str) { return str }
 function encode(str) { return str }
 
 app.listen(PORT, () => {
-	winston.info('Express @ localhost:%d', PORT)
+	log.info('Express @ localhost:%d', PORT)
 })

@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/Ershany/Red-Crow#readme",
   "dependencies": {
+    "compression": "^1.7.1",
     "express": "^4.15.4",
     "mysql": "^2.14.1",
     "twilio": "^3.6.7",
