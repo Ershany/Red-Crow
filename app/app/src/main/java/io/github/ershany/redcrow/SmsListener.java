@@ -43,7 +43,7 @@ public class SmsListener extends BroadcastReceiver {
                 // Loop through all of the received SMS and filter them to only read the ones from the server
                 for(int i = 0; i < smsMessages.length; ++i) {
                     String phoneNumber = smsMessages[i].getDisplayOriginatingAddress();
-                    if(!phoneNumber.contains("6136330139")) continue;
+                    if(!phoneNumber.contains(context.getString(R.string.server_phonenumber))) continue;
 
                     String message = smsMessages[i].getDisplayMessageBody();
 

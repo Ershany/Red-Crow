@@ -1,0 +1,5 @@
+Duties:
+	Setup proper logging library for the server
+	Integrated some basic error checking for the message format
+
+Total Time: 4 hours

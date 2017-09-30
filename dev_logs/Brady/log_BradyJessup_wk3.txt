@@ -1,0 +1,7 @@
+Achievements:
+-Setup node frameworks
+-Setup Node ORM on the server side along with implementation of our database
+-Added an app configuration for the mobile app
+-Added Mockito to the mobile app, which will allow us to mock and stub for unit testing purposes
+
+Total Time: 5 hours
