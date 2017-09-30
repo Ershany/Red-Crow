@@ -2,6 +2,7 @@
 
 const compression = require('compression')
 const orm = require('orm')
+const MigrateTask = require('migrate-orm2')
 const express = require('express')
 const MessagingResponse = require('twilio').twiml.MessagingResponse
 const log = require('./log')
@@ -22,6 +23,8 @@ app.use(compression())
 orm.connect('mysql://root:potato@localhost/smsblitz', (err, db) => {
 	if(err) throw err
 	log.info('Connected to MySQL Database')
+	var task = new MigrateTask(db.driver);
+	log.info("Migration framework initialized for Node ORM")
 	
 	// Define tables
 	var User = db.define('User', {

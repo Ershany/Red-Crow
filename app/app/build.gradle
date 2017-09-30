@@ -27,14 +27,9 @@ dependencies {
     compile 'com.android.support:appcompat-v7:26.+'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     testCompile 'junit:junit:4.12'
-<<<<<<< HEAD
     compile 'com.google.android.gms:play-services-ads:11.2.0'
-
-=======
-
     // required if you want to use Mockito for unit tests
     testCompile 'org.mockito:mockito-core:2.7.22'
     // required if you want to use Mockito for Android tests
     androidTestCompile 'org.mockito:mockito-android:2.7.22'
->>>>>>> 8ce226cf09b30bd0146dd1df50172f2fa7b97ecd
 }
