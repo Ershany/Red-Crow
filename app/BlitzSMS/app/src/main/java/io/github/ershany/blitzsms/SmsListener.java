@@ -9,7 +9,6 @@ import android.provider.Telephony;
 import android.telephony.SmsManager;
 import android.telephony.SmsMessage;
 import android.util.Log;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import io.github.ershany.blitzsms.R;
