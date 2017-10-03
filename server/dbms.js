@@ -1,3 +1,5 @@
+'use strict'
+
 const orm = require('orm')
 const log = require('./log')
 const MigrateTask = require('migrate-orm2')

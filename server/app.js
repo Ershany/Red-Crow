@@ -92,3 +92,12 @@ function encode(str) { return str }
 app.listen(PORT, () => {
 	log.info('Express @ localhost:%d', PORT)
 })
+
+module.exports = {
+	sayHello: () => {
+		return 'hello'
+	},
+	addNumbers: (a, b) => {
+		return a + b
+	}
+}
