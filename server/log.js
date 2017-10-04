@@ -1,9 +1,9 @@
 'use strict'
 
-var winston = require('winston')
-var config = require('winston/lib/winston/config');
+let winston = require('winston')
+let config = require('winston/lib/winston/config');
 
-var log = new (winston.Logger)({
+let log = new (winston.Logger)({
 	transports: [
 		new (winston.transports.Console)({
 			timestamp: () => {

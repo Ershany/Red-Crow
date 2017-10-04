@@ -1,8 +1,8 @@
 'use strict'
 
-const orm = require('orm')
-const log = require('./log')
-const MigrateTask = require('migrate-orm2')
+let log = require('./log')
+let orm = require('orm')
+let MigrateTask = require('migrate-orm2')
 
 // TODO: Add foreign key relationships
 
@@ -53,4 +53,4 @@ function connect(dbString) {
 	})
 }
 
-module.exports.connect = connect
+module.exports = { connect }
