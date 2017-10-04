@@ -4,7 +4,9 @@
   "description": "A server that handles responding to internet requests via sms.",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha",
+    "start": "node app.js",
+    "fk": "mysql < ./db_scripts/fk_setup.sql"
   },
   "repository": {
     "type": "git",
@@ -20,6 +22,7 @@
     "compression": "^1.7.1",
     "express": "^4.15.4",
     "mysql": "^2.14.1",
+    "orm": "^4.0.1",
     "twilio": "^3.6.7",
     "winston": "^2.3.1"
   },
@@ -28,7 +31,6 @@
     "migrate-orm2": "^3.0.0",
     "mocha": "^3.5.3",
     "ngrok": "^2.2.22",
-    "orm": "^4.0.0",
     "sinon": "^3.3.0"
   }
 }

@@ -1,0 +1,6 @@
+Duties:
+	Added server responses to google queries
+	Made some unit tests for requests on the server
+	Worked on the design of the server, seperating modules from each other
+
+Total Time: 6 hours

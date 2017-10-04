@@ -1,0 +1,6 @@
+Achievements:
+-Fixed the frontend application since it stopped building
+-Rebuilt the frontend mobile application
+-Added tabs and redid the frontend UI and layouts, which will make it easy to add more UI features in the future
+
+Total Time: 7 hours
