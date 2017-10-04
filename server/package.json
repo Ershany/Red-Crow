@@ -6,6 +6,7 @@
   "scripts": {
     "test": "mocha",
     "start": "node app.js",
+    "fk": "mysql < ./db_scripts/fk_setup.sql"
   },
   "repository": {
     "type": "git",
