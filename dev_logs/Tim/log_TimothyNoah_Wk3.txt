@@ -1,0 +1,7 @@
+Duties:
+  Capitalize all Java Files
+  Added parsing utilities to class "Encoding"
+  Added time capabilities to the "Messaging" class
+  Optimize the encoding and decoding methods
+
+Total Time: 4 Hours
