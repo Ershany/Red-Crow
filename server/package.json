@@ -4,7 +4,8 @@
   "description": "A server that handles responding to internet requests via sms.",
   "main": "app.js",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "start": "node app.js",
   },
   "repository": {
     "type": "git",

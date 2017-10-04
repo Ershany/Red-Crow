@@ -1,6 +1,5 @@
 let chai = require('chai')
 let chaiHttp = require('chai-http')
-let server = require('../app')
 let should = chai.should()
 
 chai.use(chaiHttp)
@@ -15,12 +14,14 @@ describe('App', () => {
 	describe('/GET sms', () => {
 
 		it('should perform a google search for The Beatles', (done) => {
-			chai.request(server)
+			chai.request('localhost:9001')
 			.get('/sms?Body=E00The Beatles')
 			.end((err, res) => {
 				res.should.have.status(200)
-				res.body.should.be.a('array')
-				res.body.length.should.be.eql(0)
+				// check for same app_id
+				// check for same msg_id
+				// check error_code, should be 0
+				// verify integrity of response body
 				done()
 			})
 		})

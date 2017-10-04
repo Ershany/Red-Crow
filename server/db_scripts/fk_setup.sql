@@ -1,5 +1,6 @@
-# Execute this script in the MySQL shell: 'source E:\Github Projects\Red-Crow\server\DB Setup Scripts\ForeignKeySetup.sql'
-# Or you can pipe it into MySQL if you have the environment variable setup: 'mysql < ForeignKeySetup.sql'
+# Execute this script in the MySQL shell: 'source Red-Crow\server\db_scripts\fk_setup.sql'
+# Or you can pipe it into MySQL if you have the environment variable setup: 'mysql < fk_setup.sql'
+# Or you can try running npm fk, which does the same as above
 # You will have to execute this script everytime you want to setup the database (only needs to be ran once)
 
 USE smsblitz;
