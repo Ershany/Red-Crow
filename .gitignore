@@ -114,3 +114,4 @@ typings/
 
 # dotenv environment variables file
 .env
+server/package-lock.json

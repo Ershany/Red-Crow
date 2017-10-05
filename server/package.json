@@ -21,6 +21,7 @@
   "dependencies": {
     "compression": "^1.7.1",
     "express": "^4.15.4",
+    "google": "^2.1.0",
     "mysql": "^2.14.1",
     "orm": "^4.0.1",
     "twilio": "^3.6.7",
@@ -28,6 +29,7 @@
   },
   "devDependencies": {
     "chai": "^4.1.2",
+    "chai-http": "^3.0.0",
     "migrate-orm2": "^3.0.0",
     "mocha": "^3.5.3",
     "ngrok": "^2.2.22",
