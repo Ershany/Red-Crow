@@ -1,0 +1,5 @@
+Duties:
+	Setup App ad accounts
+  created loading screen for app startup
+
+Total Time: 2 hours
