@@ -1,0 +1,4 @@
+Achievements:
+-Researched web scrapping techniques for the server side
+
+Total Time: 1 hours
