@@ -27,6 +27,18 @@
             android:name=".SearchAppActivity"
             android:label="Blitz SMS">
         </activity>
+        <activity
+            android:name=".MapsAppActivity"
+            android:label="Blitz SMS">
+        </activity>
+        <activity
+            android:name=".NewsAppActivity"
+            android:label="Blitz SMS">
+        </activity>
+        <activity
+            android:name=".WebsiteAppActivity"
+            android:label="Blitz SMS">
+        </activity>
 
         <receiver android:name=".SmsListener">
             <intent-filter>

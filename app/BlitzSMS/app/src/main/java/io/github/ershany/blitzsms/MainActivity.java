@@ -9,12 +9,10 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
-import android.telephony.SmsManager;
 import android.view.MenuItem;
 
 public class MainActivity extends AppCompatActivity {
 
-    private SmsManager smsManager;
     //private AdView mAdView;
 
     /**
@@ -36,7 +34,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        smsManager = SmsManager.getDefault();
         //MobileAds.initialize(this, "ca-app-pub-3940256099942544~3347511713");
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -113,4 +110,5 @@ public class MainActivity extends AppCompatActivity {
             return null;
         }
     }
+
 }

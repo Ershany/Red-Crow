@@ -1,7 +1,7 @@
 package io.github.ershany.blitzsms;
 
 /**
- * Created by Brady on 10/14/2017.
+ * Created by Brady on 10/15/2017.
  */
 
 import android.app.Activity;
@@ -13,21 +13,21 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 
-public class SearchAppActivity extends Activity {
+public class WebsiteAppActivity extends Activity {
 
     private final SmsManager smsManager = SmsManager.getDefault();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.search_app_activity);
+        setContentView(R.layout.website_app_activity);
 
-        Button b = findViewById(R.id.searchButton);
+        Button b = findViewById(R.id.websiteButton);
         b.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                EditText searchText = (EditText) findViewById(R.id.searchEditText);
-                String searchString = searchText.getText().toString().trim();
-                searchText.setText("");
+                EditText websiteText = (EditText) findViewById(R.id.websiteEditText);
+                String searchString = websiteText.getText().toString().trim();
+                websiteText.setText("");
 
                 // Hide the keyboard
                 InputMethodManager imm = (InputMethodManager) getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE);

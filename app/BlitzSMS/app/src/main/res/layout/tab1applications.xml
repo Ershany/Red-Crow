@@ -32,7 +32,7 @@
         android:layout_alignStart="@+id/searchAppButton" />
 
     <ImageButton
-        android:id="@+id/imageButton"
+        android:id="@+id/newsAppButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="14dp"
@@ -42,13 +42,13 @@
         android:layout_alignStart="@+id/websiteAppButton" />
 
     <ImageButton
-        android:id="@+id/imageButton2"
+        android:id="@+id/mapsAppButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         app:srcCompat="@drawable/maps_app_image"
-        android:layout_below="@+id/imageButton"
-        android:layout_alignLeft="@+id/imageButton"
-        android:layout_alignStart="@+id/imageButton" />
+        android:layout_below="@+id/newsAppButton"
+        android:layout_alignLeft="@+id/newsAppButton"
+        android:layout_alignStart="@+id/newsAppButton" />
 
 </RelativeLayout>

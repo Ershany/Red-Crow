@@ -19,10 +19,34 @@ public class Tab1Applications extends Fragment {
                              Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.tab1applications, container, false);
 
-        ImageButton b = rootView.findViewById(R.id.searchAppButton);
-        b.setOnClickListener(new View.OnClickListener() {
+        ImageButton bSearch = rootView.findViewById(R.id.searchAppButton);
+        bSearch.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent i = new Intent(getContext(), SearchAppActivity.class);
+                startActivity(i);
+            }
+        });
+
+        ImageButton bMaps = rootView.findViewById(R.id.mapsAppButton);
+        bMaps.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent i = new Intent(getContext(), MapsAppActivity.class);
+                startActivity(i);
+            }
+        });
+
+        ImageButton bNews = rootView.findViewById(R.id.newsAppButton);
+        bNews.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent i = new Intent(getContext(), NewsAppActivity.class);
+                startActivity(i);
+            }
+        });
+
+        ImageButton bWebsite = rootView.findViewById(R.id.websiteAppButton);
+        bWebsite.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent i = new Intent(getContext(), WebsiteAppActivity.class);
                 startActivity(i);
             }
         });

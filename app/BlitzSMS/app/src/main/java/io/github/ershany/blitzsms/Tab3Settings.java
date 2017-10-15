@@ -18,4 +18,5 @@ public class Tab3Settings extends Fragment {
         View rootView = inflater.inflate(R.layout.tab3settings, container, false);
         return rootView;
     }
+
 }
