@@ -15,19 +15,19 @@
         android:layout_height="wrap_content" />
 
     <ImageButton
-        android:id="@+id/imageButton2"
+        android:id="@+id/searchAppButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:srcCompat="@drawable/search_app_image"
         android:layout_centerHorizontal="true" />
 
     <ImageButton
-        android:id="@+id/imageButton"
+        android:id="@+id/websiteAppButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/imageButton2"
-        android:layout_alignStart="@+id/imageButton2"
-        android:layout_below="@+id/imageButton2"
+        android:layout_alignLeft="@+id/searchAppButton"
+        android:layout_alignStart="@+id/searchAppButton"
+        android:layout_below="@+id/searchAppButton"
         android:layout_marginTop="12dp"
         app:srcCompat="@drawable/website_app_image" />
 
