@@ -5,5 +5,6 @@ Achievements:
 -Made and added more drawable resources
 -Added applications for searching, websites, news, and maps
 -Researched storage options on the mobile side
+-Added all of the applications have their own seperate page (Searches, Websites, News, and Maps)
 
-Total Time: 6 hours
+Total Time: 8 hours
