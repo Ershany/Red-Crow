@@ -24,24 +24,24 @@ public class Tab1Applications extends Fragment {
                              Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.tab1applications, container, false);
 
-        Button b = rootView.findViewById(R.id.searchButton);
-        b.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                EditText searchText = (EditText) rootView.findViewById(R.id.searchEditText);
-                String searchString = searchText.getText().toString().trim();
-                searchText.setText("");
-
-                // Hide the keyboard
-                InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
-
-                // Send the SMS if the user entered a message
-                if(searchString == null || searchString.isEmpty()) return;
-
-                // Later will want to change the last two parameters to a value so we can tell if the sms was sent and received. Thus we can update the frontend
-                smsManager.sendTextMessage(getResources().getString(R.string.server_phonenumber), null, searchString, null, null);
-            }
-        });
+        //Button b = rootView.findViewById(R.id.searchButton);
+        //b.setOnClickListener(new View.OnClickListener() {
+        //    public void onClick(View v) {
+        //        EditText searchText = (EditText) rootView.findViewById(R.id.searchEditText);
+        //        String searchString = searchText.getText().toString().trim();
+        //        searchText.setText("");
+//
+        //        // Hide the keyboard
+        //        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        //        imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+//
+        //        // Send the SMS if the user entered a message
+        //        if(searchString == null || searchString.isEmpty()) return;
+//
+        //        // Later will want to change the last two parameters to a value so we can tell if the sms was sent and received. Thus we can update the frontend
+        //        smsManager.sendTextMessage(getResources().getString(R.string.server_phonenumber), null, searchString, null, null);
+        //    }
+        //});
 
         return rootView;
     }
