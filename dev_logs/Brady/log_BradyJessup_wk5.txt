@@ -1,4 +1,7 @@
 Achievements:
 -Researched web scrapping techniques for the server side
+-Updated the apps tab and redid all of the UI for that specific tab
+-Made a new page specifically for searches
+-Made and added more drawable resources
 
-Total Time: 1 hours
+Total Time: 5 hours
