@@ -3,5 +3,7 @@ Achievements:
 -Updated the apps tab and redid all of the UI for that specific tab
 -Made a new page specifically for searches
 -Made and added more drawable resources
+-Added applications for searching, websites, news, and maps
+-Researched storage options on the mobile side
 
-Total Time: 5 hours
+Total Time: 6 hours
