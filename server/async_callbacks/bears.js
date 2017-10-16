@@ -1,8 +1,13 @@
 var fs = require('fs')
 
 function replySMS(message, done) {
-	if(message.auth != 69)
-		return done(null, 'Unauthorized Token')
+	let error_code = 0
+	let reply = 'empty'
+
+	if(message.auth != 69) {
+		error_code = 1
+		reply = 'Unauthorized Token'
+	}
 
 	switch(message.app_id) {
 		case 0:
@@ -12,14 +17,14 @@ function replySMS(message, done) {
 			webpageFetch(message.body)
 			break;
 		default:
-			done('Unimplemented Application')
+			error_code = 2
+			reply = 'Unimplemented Application'
 			break;
 	}
 
-
 	function googleSearch(query) {
 		fs.readFile(query, function (err, results) {
-			if(err)
+			if(err) 
 				return done(err)
 			done(null, results)
 		})
@@ -34,11 +39,15 @@ let message = {
 	auth: 69,
 	app_id: 0,
 	msg_id: 0,
-	body: 'TheBeatles.txt'
+	body: 'async_callbacks/TheBeatles.txt'
 }
 
 replySMS(message, function(err, res) {
 	if(err)
-		return console.log(err) // error sms
-	console.log(res.toString()) // worked sms
+		console.log(err) // no sms sent
+	console.log(res.toString())
+	return res.toString()
+	// sendEncodedSMS(res.toString())
 })
+
+console.log('Reply', reply)
