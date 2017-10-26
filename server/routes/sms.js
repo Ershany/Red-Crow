@@ -3,8 +3,10 @@
 let MessagingResponse = require('twilio').twiml.MessagingResponse
 
 let log = require('../log')
-let decode = require('../encryption').decode
-let encode = require('../encryption').encode
+// let decode = require('../encryption').decode
+// let encode = require('../encryption').encode
+function decode(str) { return str }
+function encode(str) { return str } 
 
 function getSMS(req, res) {
 	log.info('Received SMS:', req.query.Body)
@@ -41,6 +43,7 @@ function getSMS(req, res) {
 	switch(app_id) {
 		case '0': // 0
 			log.info('Google Search Request: %s', msg_body)
+
 			// TODO: google search here
 			break
 		case '1': // 1
