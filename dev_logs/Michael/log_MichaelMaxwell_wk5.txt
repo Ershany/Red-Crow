@@ -1,0 +1,6 @@
+Duties:
+	Improved google search results with error handling
+	Reworked the server to handle requests asynchronously
+	Researched captcha evasion, and google api key
+
+Total Time: 6 hours

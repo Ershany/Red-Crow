@@ -1,6 +1,7 @@
 'use strict'
 
 let fs = require('fs')
+let http = require('http')
 let MessagingResponse = require('twilio').twiml.MessagingResponse
 
 let log = require('../log')
@@ -50,13 +51,32 @@ function getSMS(req, res) {
 		res.end(encode(twiml.toString()))
 	}
 
-	function webpage() {
+	function webpage(url) {
+		var options = {
+			host: 'www.textfiles.com',
+			path: '/100/actung.hum'
+		}
 
-		fs.readFile('beatles.txt', (err, data) => {
-			if(err)
-				throw err
-			replyWith(data, sms)
+		http.get(options, (http_res) => {
+			var data = ''
+
+			http_res.on('data', (chunk) => {
+				data += chunk
+			})
+
+			http_res.on('end', () => {
+				// you can use res.send instead of console.log to output via express
+				data = data.replace(/<.*?>/g, '').replace(/\t|\r|\n/g, '')
+				console.log(data)
+				replyWith(data, sms)
+			})
 		})
+
+		// fs.readFile('beatles.txt', (err, data) => {
+		// 	if(err)
+		// 		throw err
+		// 	replyWith(data, sms)
+		// })
 	}
 
 	function search(query) {
@@ -68,9 +88,9 @@ function getSMS(req, res) {
 			if(err)
 				throw err
 			for (let link of res.links) {
-				if (link.title == "" || link.href == null || link.title == null)
+				if (link.title == '' || link.href == null || link.title == null)
 					continue
-				if (link.title.includes ("Image") || link.title.includes("Youtube") || link.href.includes("https://www.youtube"))
+				if (link.title.includes ('Image') || link.title.includes('Youtube') || link.href.includes('https://www.youtube'))
 					continue
 
 				data.links.push({
@@ -80,25 +100,25 @@ function getSMS(req, res) {
 				})
 
 				printedCount++
-				if (printedCount == 3){
+				if (printedCount == 3)
 					break
-				}
 			}
 
 			replyWith(convertJSON(data), sms)
 		})
 	}
+}
 
-	function convertJSON(stuff) {
-		let res = ''
+function convertJSON(stuff) {
+	let res = ''
 
-		for(let link of stuff.links) {
-			res += link.title + '\n'
-			res += link.url + '\n'
-			res += link.desc + '\n'
-		}
-		return res
+	for(let link of stuff.links) {
+		res += link.title + '\n'
+		res += link.url + '\n'
+		res += link.desc + '\n'
 	}
+
+	return res
 }
 
 module.exports = { getSMS }
