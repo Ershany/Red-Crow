@@ -1,74 +1,124 @@
 'use strict'
 
+let fs = require('fs')
+let http = require('http')
 let MessagingResponse = require('twilio').twiml.MessagingResponse
 
 let log = require('../log')
+let google = require('../google')
+google.resultsPerPage = 10
 // let decode = require('../encryption').decode
 // let encode = require('../encryption').encode
 function decode(str) { return str }
-function encode(str) { return str } 
+function encode(str) { return str }
 
 function getSMS(req, res) {
-	log.info('Received SMS:', req.query.Body)
-	// log.info(req.query)
+	let twiml = new MessagingResponse()
 
-	let err_code = 0
-
-	if(!(req && req.query && req.query.Body)) {
-		log.warn('No Query Received')
-		err_code |= 1 << 0
-		// return res.sendStatus(500)
+	let q = decode(req.query.Body) || ''
+	let sms = {
+		auth: q.charAt(0),
+		app : q.charAt(1),
+		msg : q.charAt(2),
+		body: q.substring(3)
 	}
 
-	var decoded = decode(req.query.Body)
-	let app_id = decoded.charAt(1) // charCodeAt
-	let msg_id = decoded.charAt(2) // charCodeAt
-	let msg_body = decoded.substr(3)
+	log.info('SMS Received:', JSON.stringify(sms))
 
-	if(decoded.length < 4) {
-		log.warn('Received Insufficient Data')
-		err_code |= 1 << 1
-		// TODO: don't return before sending reply to phone
-		// return res.sendStatus(500)
+	if(sms.auth != 'E') {
+		log.warn('auth failed')
+		replyWith('auth failed', sms, '1')
+		return
 	}
 
-	if(!decoded.startsWith('E')) {
-		log.warn('Check Byte Fail')
-		err_code |= 1 << 2
-		// return res.sendStatus(500)
-	}
-
-	let reply = 'Unknown Command'
-
-	switch(app_id) {
-		case '0': // 0
-			log.info('Google Search Request: %s', msg_body)
-
-			// TODO: google search here
+	switch(sms.app) {
+		case '0':
+			search(sms.body)
 			break
-		case '1': // 1
-			log.info('Webpage Request: %s', msg_body)
-			reply = 'webpages use too much data :)'
+		case '1':
+			webpage(sms.body)
 			break
 		default:
-			log.warn('Unimplemented Application')
-			err_code |= 1 << 3
+			log.warn('wrong app')
+			replyWith('wrong app', sms, '2')
 			break
 	}
 
-	res.writeHead(200, {'Content-Type': 'text/xml'})
-	res.end(sendEncodedSMS(err_code, app_id, msg_id, reply))
-
-	log.info('Sent %d bytes to user %d', text_reply.length, 6137954472) // TODO: get actual number
-
-	function sendEncodedSMS(error_code, app_id, msg_id, body) {
-		let twiml = new MessagingResponse()
-		if(error_code)
-			body = ''
-		let text_reply = encode(error_code + app_id + msg_id + body)
-		twiml.message(text_reply)
-		return twiml.toString()
+	function replyWith(str, sms, err = '0') {
+		let header = err + sms.app + sms.msg
+		twiml.message(header + str.toString())
+		res.writeHead(200, {'Content-Type': 'text/xml'})
+		res.end(encode(twiml.toString()))
 	}
+
+	function webpage(url) {
+		var options = {
+			host: 'www.textfiles.com',
+			path: '/100/actung.hum'
+		}
+
+		http.get(options, (http_res) => {
+			var data = ''
+
+			http_res.on('data', (chunk) => {
+				data += chunk
+			})
+
+			http_res.on('end', () => {
+				// you can use res.send instead of console.log to output via express
+				data = data.replace(/<.*?>/g, '').replace(/\t|\r|\n/g, '')
+				console.log(data)
+				replyWith(data, sms)
+			})
+		})
+
+		// fs.readFile('beatles.txt', (err, data) => {
+		// 	if(err)
+		// 		throw err
+		// 	replyWith(data, sms)
+		// })
+	}
+
+	function search(query) {
+		// google search here
+		let data = { links: [] }
+		let nextCounter = 0
+		let printedCount = 0
+		google(query, (err, res) => {
+			if(err)
+				throw err
+			for (let link of res.links) {
+				if (link.title == '' || link.href == null || link.title == null)
+					continue
+				if (link.title.includes ('Image') || link.title.includes('Youtube') || link.href.includes('https://www.youtube'))
+					continue
+
+				data.links.push({
+					title: link.title,
+					url: link.href,
+					desc: link.description
+				})
+
+				printedCount++
+				if (printedCount == 3)
+					break
+			}
+
+			replyWith(convertJSON(data), sms)
+		})
+	}
+}
+
+function convertJSON(stuff) {
+	let res = ''
+
+	for(let link of stuff.links) {
+		res += link.title + '\n'
+		res += link.url + '\n'
+		res += link.desc + '\n'
+	}
+
+	return res
 }
 
 module.exports = { getSMS }
