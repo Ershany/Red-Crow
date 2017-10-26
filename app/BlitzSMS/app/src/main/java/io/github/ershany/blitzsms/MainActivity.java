@@ -13,6 +13,7 @@ import android.view.MenuItem;
 
 import io.github.ershany.blitzsms.fragments.Tab1Applications;
 import io.github.ershany.blitzsms.fragments.Tab2History;
+import io.github.ershany.blitzsms.fragments.Tab3Settings;
 
 public class MainActivity extends AppCompatActivity {
 

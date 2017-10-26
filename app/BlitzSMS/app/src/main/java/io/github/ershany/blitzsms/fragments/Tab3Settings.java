@@ -1,4 +1,4 @@
-package io.github.ershany.blitzsms;
+package io.github.ershany.blitzsms.fragments;
 
 /**
  * Created by Brady on 10/2/2017.
@@ -9,6 +9,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import io.github.ershany.blitzsms.R;
 
 public class Tab3Settings extends Fragment {
 

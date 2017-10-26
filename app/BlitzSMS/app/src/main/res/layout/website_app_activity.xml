@@ -50,7 +50,6 @@
             android:layout_height="63dp"
             android:layout_weight="0.15"
             android:gravity="center"
-            android:text="Title"
             android:textColor="@color/colorPrimary"
             android:textSize="32sp"
             android:textStyle="bold" />
