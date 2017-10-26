@@ -3,10 +3,10 @@
 let fs = require('fs')
 let MessagingResponse = require('twilio').twiml.MessagingResponse
 
-function getSMS(req, res) {
+module.exports = function (req, res) {
 	let twiml = new MessagingResponse()
 
-	let q = req.query.Body || '' // || '999Error'
+	let q = req.query.Body || ''
 	let sms = {
 		auth: q.charAt(0),
 		app : q.charAt(1),
@@ -56,4 +56,4 @@ function getSMS(req, res) {
 	}
 }
 
-module.exports = { getSMS }
+// module.exports = { getSMS }

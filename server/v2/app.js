@@ -11,7 +11,7 @@ app.use((req, res, next) => {
 	next()
 })
 
-app.route('/sms').get(sms.getSMS)
+app.route('/sms').get(sms)
 
 app.listen(PORT, () => {
 	console.log('Express @ localhost:%d', PORT)
