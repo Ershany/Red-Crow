@@ -35,7 +35,7 @@ function getSMS(req, res) {
 			search(sms.body)
 			break
 		case '1':
-			beatles()
+			webpage(sms.body)
 			break
 		default:
 			log.warn('wrong app')
@@ -50,7 +50,8 @@ function getSMS(req, res) {
 		res.end(encode(twiml.toString()))
 	}
 
-	function beatles() {
+	function webpage() {
+
 		fs.readFile('beatles.txt', (err, data) => {
 			if(err)
 				throw err
@@ -60,8 +61,7 @@ function getSMS(req, res) {
 
 	function search(query) {
 		// google search here
-		let data = {}
-		data.links = []
+		let data = { links: [] }
 		let nextCounter = 0
 		let printedCount = 0
 		google(query, (err, res) => {
