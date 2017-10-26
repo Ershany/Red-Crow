@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:weightSum="1">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
@@ -36,4 +37,30 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Fetch Website" />
+
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:columnCount="1"
+        android:rowCount="2" >
+
+        <TextView
+            android:id="@+id/websiteTitle"
+            android:layout_width="match_parent"
+            android:layout_height="63dp"
+            android:layout_weight="0.15"
+            android:gravity="center"
+            android:text="Title"
+            android:textColor="@color/colorPrimary"
+            android:textSize="32sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/websiteText"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </GridLayout>
+
+
 </LinearLayout>

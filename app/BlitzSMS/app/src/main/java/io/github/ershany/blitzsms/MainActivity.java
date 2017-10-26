@@ -11,6 +11,9 @@ import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import io.github.ershany.blitzsms.fragments.Tab1Applications;
+import io.github.ershany.blitzsms.fragments.Tab2History;
+
 public class MainActivity extends AppCompatActivity {
 
     //private AdView mAdView;

@@ -1,4 +1,4 @@
-package io.github.ershany.blitzsms;
+package io.github.ershany.blitzsms.fragments;
 
 /**
  * Created by Brady on 10/2/2017.
@@ -11,6 +11,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+
+import io.github.ershany.blitzsms.MapsAppActivity;
+import io.github.ershany.blitzsms.NewsAppActivity;
+import io.github.ershany.blitzsms.R;
+import io.github.ershany.blitzsms.SearchAppActivity;
+import io.github.ershany.blitzsms.WebsiteAppActivity;
 
 public class Tab1Applications extends Fragment {
 

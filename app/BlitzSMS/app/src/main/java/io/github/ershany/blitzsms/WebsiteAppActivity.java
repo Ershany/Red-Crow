@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 public class WebsiteAppActivity extends Activity {
 
@@ -38,6 +39,13 @@ public class WebsiteAppActivity extends Activity {
 
                 // Later will want to change the last two parameters to a value so we can tell if the sms was sent and received. Thus we can update the frontend
                 smsManager.sendTextMessage(getResources().getString(R.string.server_phonenumber), null, searchString, null, null);
+
+                // Test
+                TextView websiteTitleView = (TextView) findViewById(R.id.websiteTitle);
+                websiteTitleView.setText(searchString);
+
+                TextView websiteTextView = (TextView) findViewById(R.id.websiteText);
+                websiteTextView.setText("Loading...");
             }
         });
     }
