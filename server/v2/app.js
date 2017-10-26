@@ -16,3 +16,5 @@ app.route('/sms').get(sms)
 app.listen(PORT, () => {
 	console.log('Express @ localhost:%d', PORT)
 })
+
+module.exports = {}

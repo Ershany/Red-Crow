@@ -15,7 +15,7 @@ module.exports = function (req, res) {
 	}
 
 	if(sms.auth != 'E') {
-		replyWith('auth failed')
+		replyWith('auth failed', sms, '1')
 		return
 	}
 
@@ -27,33 +27,44 @@ module.exports = function (req, res) {
 			search()
 			break
 		default:
-			replyWith('wrong app')
+			replyWith('wrong app', sms, '2')
 			break
 	}
 
-	function replyWith(str) {
-		twiml.message(str.toString())
+	function replyWith(str, sms, err = '0') {
+		let header = err + sms.app + sms.msg
+		twiml.message(header + str.toString())
 		res.writeHead(200, {'Content-Type': 'text/xml'})
 		res.end(twiml.toString())
-		return
 	}
 
 	function beatles() {
 		fs.readFile('beatles.txt', (err, data) => {
 			if(err)
 				throw err
-			replyWith(data)
+			replyWith(data, sms)
 		})
 	}
 
 	function search() {
+		// google search here
 		fs.readFile('google.json', (err, data) => {
 			if(err)
 				throw err
 			// convert json to search response format
-			replyWith(data)
+			replyWith(convertJSON(JSON.parse(data)), sms)
 		})
 	}
-}
 
-// module.exports = { getSMS }
+	function convertJSON(stuff) {
+		let res = ''
+
+		for(let link of stuff.links) {
+			res += link.title + '\n'
+			res += link.url + '\n'
+			res += link.desc + '\n'
+		}
+		console.log(res)
+		return res
+	}
+}
