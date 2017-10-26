@@ -39,12 +39,6 @@
             android:name=".WebsiteAppActivity"
             android:label="Blitz SMS">
         </activity>
-
-        <receiver android:name=".SmsListener">
-            <intent-filter>
-                <action android:name="android.provider.Telephony.SMS_RECEIVED" />
-            </intent-filter>
-        </receiver>
     </application>
 
 </manifest>

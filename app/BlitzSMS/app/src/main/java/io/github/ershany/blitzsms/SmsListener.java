@@ -13,10 +13,9 @@ import android.provider.Telephony;
 import android.telephony.SmsManager;
 import android.telephony.SmsMessage;
 import android.util.Log;
-import android.widget.TextView;
 import android.widget.Toast;
 
-public class SmsListener extends BroadcastReceiver {
+public abstract class SmsListener extends BroadcastReceiver {
 
     private final SmsManager smsManager = SmsManager.getDefault();
 
@@ -55,12 +54,14 @@ public class SmsListener extends BroadcastReceiver {
 
                     // Message Format:
                     // Error Code / Type Byte / Message ID Byte
-                    ((WebsiteAppActivity) context).updateWebsiteText(message);
+                    onSMS(message);
                 }
             } catch(Exception e) {
                 Log.d("Exception - SmsListener", e.getMessage());
             }
         }
     }
+
+    public abstract void onSMS(String message);
 
 }
