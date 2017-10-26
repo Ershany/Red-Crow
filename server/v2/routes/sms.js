@@ -3,7 +3,13 @@
 let fs = require('fs')
 let MessagingResponse = require('twilio').twiml.MessagingResponse
 
-module.exports = function (req, res) {
+let log = require('../log')
+let decode = require('../encryption').decode
+let encode = require('../encryption').encode
+// function decode(str) { return str }
+// function encode(str) { return str }
+
+function getSMS(req, res) {
 	let twiml = new MessagingResponse()
 
 	let q = req.query.Body || ''
@@ -14,6 +20,8 @@ module.exports = function (req, res) {
 		body: q.substring(3)
 	}
 
+	log.info(JSON.stringify(sms))
+
 	if(sms.auth != 'E') {
 		replyWith('auth failed', sms, '1')
 		return
@@ -21,10 +29,10 @@ module.exports = function (req, res) {
 
 	switch(sms.app) {
 		case '0':
-			beatles()
+			search()
 			break
 		case '1':
-			search()
+			beatles()
 			break
 		default:
 			replyWith('wrong app', sms, '2')
@@ -51,7 +59,6 @@ module.exports = function (req, res) {
 		fs.readFile('google.json', (err, data) => {
 			if(err)
 				throw err
-			// convert json to search response format
 			replyWith(convertJSON(JSON.parse(data)), sms)
 		})
 	}
@@ -64,7 +71,8 @@ module.exports = function (req, res) {
 			res += link.url + '\n'
 			res += link.desc + '\n'
 		}
-		console.log(res)
 		return res
 	}
 }
+
+module.exports = { getSMS }

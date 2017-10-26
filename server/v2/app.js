@@ -1,20 +1,20 @@
 'use strict'
 
 let express = require('express')
+
+let log = require('./log')
+let dbms = require('./dbms')
 let sms = require('./routes/sms')
 
 const PORT = 9001
 let app = express()
 
-app.use((req, res, next) => {
-	console.log(req.method, ':', req.url)
-	next()
-})
+dbms.connect('mysql://root:potato@localhost/smsblitz')
 
-app.route('/sms').get(sms)
+app.route('/sms').get(sms.getSMS)
 
 app.listen(PORT, () => {
-	console.log('Express @ localhost:%d', PORT)
+	log.info('Express @ localhost:%d', PORT)
 })
 
 module.exports = {}
