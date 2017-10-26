@@ -1,7 +1,7 @@
 'use strict'
 
 let express = require('express')
-let compression = require('compression')
+
 let log = require('./log')
 let dbms = require('./dbms')
 let sms = require('./routes/sms')
