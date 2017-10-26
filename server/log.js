@@ -23,4 +23,4 @@ let log = new (winston.Logger)({
 	]
 })
 
-module.exports = log
+module.exports = { log }

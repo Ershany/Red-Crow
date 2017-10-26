@@ -14,12 +14,12 @@ function decode(str, num, done) {
 	exec(cmd, done)
 }
 
-encode("hello", 472, (err, stdout, stderr) => {
-	console.log('error: %s\nstdout: %s\nstderr: %s', err, stdout, stderr)
-})
+// encode("hello", 472, (err, stdout, stderr) => {
+// 	console.log('error: %s\nstdout: %s\nstderr: %s', err, stdout, stderr)
+// })
 
-decode("hello", 472, (err, stdout, stderr) => {
-	console.log('error: %s\nstdout: %s\nstderr: %s', err, stdout, stderr)
-})
+// decode("hello", 472, (err, stdout, stderr) => {
+// 	console.log('error: %s\nstdout: %s\nstderr: %s', err, stdout, stderr)
+// })
 
 module.exports = { decode, encode }
