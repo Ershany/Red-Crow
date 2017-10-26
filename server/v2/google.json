@@ -2,18 +2,18 @@
 	"links": [
 	{
 		"title": "Star Wars Battlefront II",
-		"url":   "www.ea.com/battlefront2"
+		"url":   "www.ea.com/battlefront2",
 		"desc":  "Wage War Across the Galaxy with Star Wars Battlefront II"
 	},
 	{
 		"title": "StarWars.com | The Official Star Wars Website",
-		"url":   "www.starwars.com"
+		"url":   "www.starwars.com",
 		"desc":  "The official site for Star Wars, featuring the latest on Star Wars: The Last Jedi, the Untitled Han Solo Film, and more."
 	},
 	{
 		"title": "Star Wars (@starwars) · Twitter",
-		"url":   "https://twitter.com/starwars"
+		"url":   "https://twitter.com/starwars",
 		"desc":  "came up with some tweet boxes.."
-	},
+	}
 	]
 }
