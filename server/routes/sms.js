@@ -4,6 +4,8 @@ let fs = require('fs')
 let MessagingResponse = require('twilio').twiml.MessagingResponse
 
 let log = require('../log')
+let google = require('../google')
+google.resultsPerPage = 10
 // let decode = require('../encryption').decode
 // let encode = require('../encryption').encode
 function decode(str) { return str }
@@ -30,7 +32,7 @@ function getSMS(req, res) {
 
 	switch(sms.app) {
 		case '0':
-			search()
+			search(sms.body)
 			break
 		case '1':
 			beatles()
@@ -56,12 +58,34 @@ function getSMS(req, res) {
 		})
 	}
 
-	function search() {
+	function search(query) {
 		// google search here
-		fs.readFile('google.json', (err, data) => {
+		let data = {}
+		data.links = []
+		let nextCounter = 0
+		let printedCount = 0
+		google(query, (err, res) => {
 			if(err)
 				throw err
-			replyWith(convertJSON(JSON.parse(data)), sms)
+			for (let link of res.links) {
+				if (link.title == "" || link.href == null || link.title == null)
+					continue
+				if (link.title.includes ("Image") || link.title.includes("Youtube") || link.href.includes("https://www.youtube"))
+					continue
+
+				data.links.push({
+					title: link.title,
+					url: link.href,
+					desc: link.description
+				})
+
+				printedCount++
+				if (printedCount == 3){
+					break
+				}
+			}
+
+			replyWith(convertJSON(data), sms)
 		})
 	}
 
