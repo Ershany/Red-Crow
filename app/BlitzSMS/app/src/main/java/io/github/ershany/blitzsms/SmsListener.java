@@ -46,14 +46,9 @@ public abstract class SmsListener extends BroadcastReceiver {
 
                     String message = smsMessages[i].getDisplayMessageBody();
 
-                    Toast toast = Toast.makeText(context, "Sender Number: " + phoneNumber +", Message: " + message, Toast.LENGTH_LONG);
-                    toast.show();
-
                     Log.i("SMS Number", phoneNumber);
                     Log.i("SMS Message", message);
 
-                    // Message Format:
-                    // Error Code / Type Byte / Message ID Byte
                     onSMS(message);
                 }
             } catch(Exception e) {

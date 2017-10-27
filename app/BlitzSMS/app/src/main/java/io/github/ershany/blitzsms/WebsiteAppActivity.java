@@ -29,6 +29,8 @@ public class WebsiteAppActivity extends Activity {
         listener = new SmsListener() {
             @Override
             public void onSMS(String message) {
+                // Message Format:
+                // Error Code / Type Byte / Message ID Byte
                 if(message.charAt(0) != '0') {
                     Log.e("Error Code", Character.toString(message.charAt(0)));
                     return;
