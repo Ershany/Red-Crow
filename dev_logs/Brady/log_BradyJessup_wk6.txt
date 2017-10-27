@@ -1,0 +1,6 @@
+Achievements:
+-Added web fetching, that communicates with the server
+-Added more UI for web fetching
+-Rewrote the SMS receiver so data can be passed to the correct activities
+
+Total Time: 11 hours

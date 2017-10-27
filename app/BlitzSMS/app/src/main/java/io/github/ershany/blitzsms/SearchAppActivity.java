@@ -6,21 +6,52 @@ package io.github.ershany.blitzsms;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.telephony.SmsManager;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 public class SearchAppActivity extends Activity {
 
     private final SmsManager smsManager = SmsManager.getDefault();
+    private SmsListener listener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.search_app_activity);
+
+        listener = new SmsListener() {
+            @Override
+            public void onSMS(String message) {
+                // Message Format:
+                // Error Code / Type Byte / Message ID Byte
+                if(message.charAt(0) != '0') {
+                    Log.e("Error Code", Character.toString(message.charAt(0)));
+                    return;
+                }
+                if(message.charAt(1) != '0') {
+                    Log.e("Wrong AppType", Character.toString(message.charAt(1)));
+                    return;
+                }
+
+                String searchPayload = message.substring(3);
+
+                TextView textView = (TextView) findViewById(R.id.textView);
+                textView.setText(searchPayload);
+            }
+        };
+        IntentFilter intentFilter = new IntentFilter("android.provider.Telephony.SMS_RECEIVED");
+        intentFilter.setPriority(999);
+        this.registerReceiver(listener, intentFilter);
 
         Button b = findViewById(R.id.searchButton);
         b.setOnClickListener(new View.OnClickListener() {
@@ -36,8 +67,12 @@ public class SearchAppActivity extends Activity {
                 // Send the SMS if the user entered a message
                 if(searchString == null || searchString.isEmpty()) return;
 
+                // Build the message for the server
+                int messageId = 0;
+                String message = "E0" + messageId + searchString;
+
                 // Later will want to change the last two parameters to a value so we can tell if the sms was sent and received. Thus we can update the frontend
-                smsManager.sendTextMessage(getResources().getString(R.string.server_phonenumber), null, searchString, null, null);
+                smsManager.sendTextMessage(getResources().getString(R.string.server_phonenumber), null, message, null, null);
             }
         });
     }
