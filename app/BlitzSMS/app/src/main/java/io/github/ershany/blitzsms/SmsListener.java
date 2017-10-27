@@ -13,7 +13,6 @@ import android.provider.Telephony;
 import android.telephony.SmsManager;
 import android.telephony.SmsMessage;
 import android.util.Log;
-import android.widget.Toast;
 
 public abstract class SmsListener extends BroadcastReceiver {
 

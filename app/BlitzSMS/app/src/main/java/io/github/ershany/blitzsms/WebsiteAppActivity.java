@@ -26,6 +26,7 @@ public class WebsiteAppActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.website_app_activity);
 
+        // SMS Received Listener
         listener = new SmsListener() {
             @Override
             public void onSMS(String message) {
@@ -48,6 +49,7 @@ public class WebsiteAppActivity extends Activity {
         intentFilter.setPriority(999);
         this.registerReceiver(listener, intentFilter);
 
+        // Button listener
         Button b = findViewById(R.id.websiteButton);
         b.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {

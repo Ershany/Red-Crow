@@ -50,6 +50,7 @@
             android:layout_height="63dp"
             android:layout_weight="0.15"
             android:gravity="center"
+            android:maxLines="1"
             android:textColor="@color/colorPrimary"
             android:textSize="32sp"
             android:textStyle="bold" />
@@ -57,7 +58,13 @@
         <TextView
             android:id="@+id/websiteText"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:paddingBottom="15dp"
+            android:paddingEnd="5dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:paddingStart="5dp"
+            android:paddingTop="15dp" />
 
     </GridLayout>
 
