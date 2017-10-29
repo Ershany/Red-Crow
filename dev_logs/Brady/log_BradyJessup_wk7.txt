@@ -1,0 +1,11 @@
+Achievements:
+-Added web searching and its corresponding UI
+-Added a feature so that if a user clicks on a search (after the search completes), the app would follow up with a website fetch
+-Redid the UI for all activities that required scrollviews
+-Redid the UI for web fetching to ensure that a large URL would still be shown on the screen
+-Rewrote the SMS receiver so that the texts from the server are parsed together since they weren't being received correctly. I will have to change it in the future so that it takes into account the messageID
+-Added more logging to the app for debugging purposes
+-Tested the app with fake results to ensure proper result
+-Did integration tests with Michael to ensure proper results for the prototype
+
+Total Time: 9 hours
