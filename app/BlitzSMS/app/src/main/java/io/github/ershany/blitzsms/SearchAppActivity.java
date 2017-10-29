@@ -52,7 +52,7 @@ public class SearchAppActivity extends Activity {
             public void onSMS(String message) {
                 // Message Format:
                 // Error Code / Type Byte / Message ID Byte
-                if(message.charAt(0) != 'E') { // Should be 0
+                if(message.charAt(0) != '0') {
                     Log.e("Error Code", Character.toString(message.charAt(0)));
                     return;
                 }
@@ -61,12 +61,8 @@ public class SearchAppActivity extends Activity {
                     return;
                 }
 
-                String test = "000How to prepare sushi : Sushi Masters\nwww.sushimasters.com/index.html\nWe will teach you how to properly prepare your sushi. This include nigiri, tamaki, and california rolls. Come get our tips!\n" +
-                              "Buy sushi online\nwww.sushishop.ca/\nOnline delivery, 60 minutes or your money back! Includes all of the latest and greatest sushi\n" +
-                              "Sushi reviews\nwww.sushireviews.com/\nWe review all the latest sushi! Come check out our reviews to find the best tips, this way you will not waste your money!\n";
-
                 // Parse the important information and add it to the textviews
-                String[] searchPayload = test.substring(3).split("\n");
+                String[] searchPayload = message.substring(3).split("\n");
                 for(int i = 0; i < textViews.length; ++i) {
                     if(i >= searchPayload.length) break;
 
