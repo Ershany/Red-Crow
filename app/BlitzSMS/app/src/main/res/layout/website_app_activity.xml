@@ -52,7 +52,7 @@
             android:gravity="center"
             android:maxLines="1"
             android:textColor="@color/colorPrimary"
-            android:textSize="32sp"
+            android:autoSizeTextType="uniform"
             android:textStyle="bold" />
 
         <TextView
