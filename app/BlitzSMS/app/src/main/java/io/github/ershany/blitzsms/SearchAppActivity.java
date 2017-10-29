@@ -66,6 +66,7 @@ public class SearchAppActivity extends Activity {
                 for(int i = 0; i < textViews.length; ++i) {
                     if(i >= searchPayload.length) break;
 
+                    Log.i("SearchParse", searchPayload[i]);
                     textViews[i].setText(searchPayload[i]);
                 }
 
@@ -102,6 +103,8 @@ public class SearchAppActivity extends Activity {
                 textViews[0].setText("Loading");
                 textViews[3].setText("Loading");
                 textViews[6].setText("Loading");
+
+                Log.i("SearchSent", "Search sent: " + message);
             }
         });
 

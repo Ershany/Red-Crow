@@ -39,15 +39,18 @@ public abstract class SmsListener extends BroadcastReceiver {
                 }
 
                 // Loop through all of the received SMS and filter them to only read the ones from the server
+                String message = "";
                 for(int i = 0; i < smsMessages.length; ++i) {
                     String phoneNumber = smsMessages[i].getDisplayOriginatingAddress();
                     if(!phoneNumber.contains(context.getString(R.string.server_phonenumber))) continue;
 
-                    String message = smsMessages[i].getDisplayMessageBody();
+                    message += smsMessages[i].getDisplayMessageBody();
 
                     Log.i("SMS Number", phoneNumber);
                     Log.i("SMS Message", message);
+                }
 
+                if(!message.isEmpty()) {
                     onSMS(message);
                 }
             } catch(Exception e) {

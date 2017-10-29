@@ -75,6 +75,8 @@ public class WebsiteAppActivity extends Activity {
                 TextView websiteTitleView = (TextView) findViewById(R.id.websiteTitle);
                 websiteTitleView.setText(searchString);
                 updateWebsiteText("Loading...");
+
+                Log.i("WebsiteSent", message);
             }
         });
 
@@ -87,6 +89,7 @@ public class WebsiteAppActivity extends Activity {
                 websiteText.setText(urlFromParent);
 
                 button.performClick();
+                Log.i("URLReceived", "URL Received From Search: " + urlFromParent);
             }
         }
     }
