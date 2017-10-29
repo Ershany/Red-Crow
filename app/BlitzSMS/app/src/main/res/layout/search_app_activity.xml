@@ -43,6 +43,7 @@
         android:orientation="vertical">
 
         <LinearLayout
+            android:id="@+id/searchLayout1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -75,6 +76,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/searchLayout2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -107,6 +109,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/searchLayout3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"

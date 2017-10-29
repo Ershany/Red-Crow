@@ -18,6 +18,8 @@ import io.github.ershany.blitzsms.R;
 import io.github.ershany.blitzsms.SearchAppActivity;
 import io.github.ershany.blitzsms.WebsiteAppActivity;
 
+import static android.app.Activity.RESULT_OK;
+
 public class Tab1Applications extends Fragment {
 
     @Override
@@ -29,7 +31,7 @@ public class Tab1Applications extends Fragment {
         bSearch.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent i = new Intent(getContext(), SearchAppActivity.class);
-                startActivity(i);
+                startActivityForResult(i, 1); // Request code is 1
             }
         });
 
@@ -58,6 +60,20 @@ public class Tab1Applications extends Fragment {
         });
 
         return rootView;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        // Check if an URL was returned from the search
+        if(requestCode == 1) {
+            if(resultCode == RESULT_OK) {
+                Intent i = new Intent(getContext(), WebsiteAppActivity.class);
+                i.putExtra("searchURL", data.getStringExtra("searchURL"));
+                startActivity(i);
+            }
+        }
     }
 
 }

@@ -50,10 +50,10 @@ public class WebsiteAppActivity extends Activity {
         this.registerReceiver(listener, intentFilter);
 
         // Button listener
-        Button b = findViewById(R.id.websiteButton);
-        b.setOnClickListener(new View.OnClickListener() {
+        Button button = findViewById(R.id.websiteButton);
+        button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                EditText websiteText = (EditText) findViewById(R.id.websiteEditText);
+                EditText websiteText = findViewById(R.id.websiteEditText);
                 String searchString = websiteText.getText().toString().trim();
                 websiteText.setText("");
 
@@ -77,12 +77,24 @@ public class WebsiteAppActivity extends Activity {
                 updateWebsiteText("Loading...");
             }
         });
+
+        // Get data from parent activity if it was supplied
+        if(getIntent().getExtras() != null) {
+            String urlFromParent = (getIntent().getExtras().get("searchURL") != null) ? getIntent().getExtras().get("searchURL").toString() : "";
+            if(!urlFromParent.isEmpty()) {
+                // Put the url in the EditText and then simulate a button click
+                EditText websiteText = findViewById(R.id.websiteEditText);
+                websiteText.setText(urlFromParent);
+
+                button.performClick();
+            }
+        }
     }
 
     public void updateWebsiteText(final String text) {
         runOnUiThread(new Runnable() {
             public void run() {
-                TextView websiteTextView = (TextView)findViewById(R.id.websiteText);
+                TextView websiteTextView = findViewById(R.id.websiteText);
                 websiteTextView.setText(text);
             }
         });

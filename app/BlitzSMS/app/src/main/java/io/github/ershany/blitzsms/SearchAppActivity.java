@@ -6,6 +6,7 @@ package io.github.ershany.blitzsms;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.telephony.SmsManager;
@@ -14,6 +15,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class SearchAppActivity extends Activity {
@@ -24,10 +26,13 @@ public class SearchAppActivity extends Activity {
     private final int numSearches = 3;
     private TextView[] textViews;
 
+    private boolean loadingComplete;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.search_app_activity);
+        loadingComplete = false;
 
         // Store the pointers to all of the textviews
         textViews = new TextView[numSearches * 3];
@@ -67,6 +72,8 @@ public class SearchAppActivity extends Activity {
 
                     textViews[i].setText(searchPayload[i]);
                 }
+
+                loadingComplete = true;
             }
         };
         IntentFilter intentFilter = new IntentFilter("android.provider.Telephony.SMS_RECEIVED");
@@ -99,6 +106,45 @@ public class SearchAppActivity extends Activity {
                 textViews[0].setText("Loading");
                 textViews[3].setText("Loading");
                 textViews[6].setText("Loading");
+            }
+        });
+
+        // Setup click listeners for each search option
+        LinearLayout layout1 = (LinearLayout) findViewById(R.id.searchLayout1);
+        LinearLayout layout2 = (LinearLayout) findViewById(R.id.searchLayout2);
+        LinearLayout layout3 = (LinearLayout) findViewById(R.id.searchLayout3);
+
+        layout1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(loadingComplete) {
+                    Intent intent = new Intent();
+                    intent.putExtra("searchURL", textViews[1].getText());
+                    setResult(RESULT_OK, intent);
+                    finish();
+                }
+            }
+        });
+        layout2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(loadingComplete) {
+                    Intent intent = new Intent();
+                    intent.putExtra("searchURL", textViews[4].getText());
+                    setResult(RESULT_OK, intent);
+                    finish();
+                }
+            }
+        });
+        layout3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(loadingComplete) {
+                    Intent intent = new Intent();
+                    intent.putExtra("searchURL", textViews[7].getText());
+                    setResult(RESULT_OK, intent);
+                    finish();
+                }
             }
         });
     }
