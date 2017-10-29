@@ -1,11 +1,10 @@
 'use strict'
 
-let fs = require('fs')
-let http = require('http')
+let request = require('request')
 let MessagingResponse = require('twilio').twiml.MessagingResponse
 
 let log = require('../log')
-let google = require('../google')
+let google = require('../google') // look into requiring the original
 google.resultsPerPage = 10
 // let decode = require('../encryption').decode
 // let encode = require('../encryption').encode
@@ -51,32 +50,13 @@ function getSMS(req, res) {
 		res.end(encode(twiml.toString()))
 	}
 
-	function webpage(url) {
-		var options = {
-			host: 'www.textfiles.com',
-			path: '/100/actung.hum'
-		}
-
-		http.get(options, (http_res) => {
-			var data = ''
-
-			http_res.on('data', (chunk) => {
-				data += chunk
-			})
-
-			http_res.on('end', () => {
-				// you can use res.send instead of console.log to output via express
-				data = data.replace(/<.*?>/g, '').replace(/\t|\r|\n/g, '')
-				console.log(data)
+	function webpage(link) {
+		request(link, (err, res, body) => {
+			if(!err && res.statusCode === 200) {
+				let data = body.replace(/<.*?>/g, '').replace(/\t|\r|\n/g, '')
 				replyWith(data, sms)
-			})
+			}
 		})
-
-		// fs.readFile('beatles.txt', (err, data) => {
-		// 	if(err)
-		// 		throw err
-		// 	replyWith(data, sms)
-		// })
 	}
 
 	function search(query) {
@@ -113,9 +93,9 @@ function convertJSON(stuff) {
 	let res = ''
 
 	for(let link of stuff.links) {
-		res += link.title + '\n'
-		res += link.url + '\n'
-		res += link.desc + '\n'
+		res += link.title.replace(/\n/g, ' ') + '\n'
+		res += link.url.replace(/\n/g, ' ') + '\n'
+		res += link.desc.replace(/\n/g, ' ') + '\n'
 	}
 
 	return res

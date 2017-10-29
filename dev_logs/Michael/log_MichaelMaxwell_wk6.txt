@@ -1,0 +1,5 @@
+Duties:
+	Research how the segmentation of text messages works with twilio
+	Conceptualized the functionality of the web page fetch feature.
+
+Total Time: 2 hours

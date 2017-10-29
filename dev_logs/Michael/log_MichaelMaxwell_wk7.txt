@@ -1,0 +1,9 @@
+Duties:
+	Implemented the search and webpage on the server
+	Optimized the format of the messages to use less data
+	Did integration test with Brady with the app to server
+	Google searches now use an api key that allows 40 queries per hour
+	Combined working prototype with previous version of server
+	Fix some general errors and the http missing one specifically.
+
+Total Time: 19 hours
