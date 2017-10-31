@@ -51,6 +51,10 @@ function getSMS(req, res) {
 	}
 
 	function webpage(link) {
+		console.log(link)
+		if(!link.startsWith('http'))
+			link = `http://${link}`;
+		console.log(link)
 		request(link, (err, res, body) => {
 			if(!err && res.statusCode === 200) {
 				let data = body.replace(/<.*?>/g, '').replace(/\t|\r|\n/g, '')
