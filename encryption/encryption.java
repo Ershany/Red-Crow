@@ -10,7 +10,7 @@ public class Encryption{
 	/*
 	Name: toString()
 	Purpose: Needed a way to make the array back to a string
-	In/outs: 
+	In/outs:
 	*/
 	@Override
 	public String toString() {
@@ -18,9 +18,9 @@ public class Encryption{
 		for (int i = 0; i < this.message.size();i++) {
 			s += this.message.get(i);
 		}
-		return s;	  
+		return s;
 	}
-	
+
 	/*
 	Name: encryption(s,k)
 	Purpose: Basic Constructor
@@ -31,7 +31,7 @@ public class Encryption{
 		gen[0] = s.getBytes()[0];
 		gen[1] = s.getBytes()[1];
 		gen[2] = s.getBytes()[2];
-		
+
 		for (int i = 3; i < s.length() ; i++) {
 			message.add(s.toCharArray()[i]);
 		}
@@ -39,31 +39,31 @@ public class Encryption{
 			k-=94;
 		}
 		key = k;
-	
+
 	}
-	
+
 	/*
 	 Name: strip()
 	 Purpose: return generic values that at is at the start
-	 In/Out: 
+	 In/Out:
 	 */
 	public byte[] strip () {
 		return gen;
 	}
-	
+
 	/*
 	Name: getMessage()
 	Purpose: public function to get the message from the encryption
-	In/outs: 
+	In/outs:
 	*/
 	public String getMessage() {
 		 return this.toString();
 	}
-	
+
 	/*
 	Name: toDecrypt()
 	Purpose: Called on the message, to decrypt the message
-	In/outs: 
+	In/outs:
 	*/
 	public void toDecrypt() {
 		for (int i = 0; i != this.message.size(); i++) {
@@ -77,15 +77,15 @@ public class Encryption{
 			else {
 				change = change - this.key;
 			}
-			this.message.set(i, (char)change);	
+			this.message.set(i, (char)change);
 		}
 		this.split();
 	}
-	
+
 	/*
 	Name: toEncrypt()
 	Purpose: called on the message to encrypt it
-	In/outs: 
+	In/outs:
 	*/
 	public void toEncrypt(){
 		for (int a = 0;a != this.message.size();a ++) {
@@ -100,30 +100,30 @@ public class Encryption{
 				else {
 					change = change+this.key;
 				}
-	
+
 				this.message.set(a, (char)change);
-				
+
 			}
 		}
-	    
+
 	    this.split();
-	    
+
 	  }
-	  
+
 	/*
 	Name: slipt()
 	Purpose: will split the array into smaller arrays (8 chars) so it can be fliped
-	In/outs: 
+	In/outs:
 	*/
 	private void split() {
 		  int a,b;
-		  
+
 		  for (int i = 0; i < (this.message.size()/8);i++){
 			  a = ((i+1)*8)-8;
 			  b = ((i+1)*8);
 			  List<Character> tmp =  (this.message).subList(a,b);
 			  flips(tmp);
-	
+
 		  }
 
 		  if ((this.message.size()%8) != 0) {
@@ -132,7 +132,7 @@ public class Encryption{
 			  flips(tmp);
 		  }
 	  }
-	
+
 	/*
 	Name: flips(tmp)
 	Purpose: Will filp the tmp list
@@ -142,5 +142,5 @@ public class Encryption{
 		  Collections.reverse(tmp);
 	  }
 
-	
+
 	}
