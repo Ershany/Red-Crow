@@ -13,6 +13,7 @@ function encode(str) { return str }
 
 function getSMS(req, res) {
 	let twiml = new MessagingResponse()
+	// log.info(req.query) // information about the phone messaging
 
 	let q = decode(req.query.Body) || ''
 	let sms = {
@@ -45,20 +46,24 @@ function getSMS(req, res) {
 
 	function replyWith(str, sms, err = '0') {
 		let header = err + sms.app + sms.msg
-		twiml.message(header + str.toString())
+		let reply = encode(header + str.toString())
+		twiml.message(reply)
 		res.writeHead(200, {'Content-Type': 'text/xml'})
-		res.end(encode(twiml.toString()))
+		res.end(twiml.toString())
+
+		let number = req.query.From || 'the browser'
+		log.info('Sent', reply.length, 'bytes to', number)
 	}
 
 	function webpage(link) {
-		console.log(link)
 		if(!link.startsWith('http'))
 			link = `http://${link}`;
-		console.log(link)
 		request(link, (err, res, body) => {
 			if(!err && res.statusCode === 200) {
 				let data = body.replace(/<.*?>/g, '').replace(/\t|\r|\n/g, '')
 				replyWith(data, sms)
+			} else {
+				replyWith('http failed', sms, '3')
 			}
 		})
 	}
