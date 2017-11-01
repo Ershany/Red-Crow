@@ -10,11 +10,17 @@ let google = require('../google') // look into requiring the original
 function decode(str) { return str }
 function encode(str) { return str }
 
+let whitelist = [
+	'HTTP',
+	'+16137954472',
+	'+16136330139',
+	'+17056538779'
+] // TODO add Tim's number
+
 function getSMS(req, res) {
 	// log.info(req.query)
 	// log the information about the phone messaging
 	// only save the needed information to the sms object
-
 
 	let twiml = new MessagingResponse()
 	let number = req.query.From || 'HTTP'
@@ -24,6 +30,12 @@ function getSMS(req, res) {
 		app : q.charAt(1),
 		msg : q.charAt(2),
 		body: q.substring(3)
+	}
+
+	if(!whitelist.includes(number)) {
+		log.warn('non-whitelisted number')
+		replyWith('non-whitelisted number', sms, '7')
+		return
 	}
 
 	log.info('SMS %s:', number, sms)
@@ -55,6 +67,8 @@ function getSMS(req, res) {
 
 	function replyWith(str, sms, err = '0') {
 		let header = err + sms.app + sms.msg
+		if(str.length > 2000)
+			str = 'error: result too large'
 		let reply = encode(header + str.toString())
 		twiml.message(reply)
 		res.writeHead(200, {'Content-Type': 'text/xml'})
