@@ -26,29 +26,6 @@ public class WebsiteAppActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.website_app_activity);
 
-        // SMS Received Listener
-        listener = new SmsListener() {
-            @Override
-            public void onSMS(String message) {
-                // Message Format:
-                // Error Code / Type Byte / Message ID Byte
-                if(message.charAt(0) != '0') {
-                    Log.e("Error Code", Character.toString(message.charAt(0)));
-                    return;
-                }
-                if(message.charAt(1) != '1') {
-                    Log.e("Wrong AppType", Character.toString(message.charAt(1)));
-                    return;
-                }
-
-                String websiteText = message.substring(3);
-                updateWebsiteText(websiteText);
-            }
-        };
-        IntentFilter intentFilter = new IntentFilter("android.provider.Telephony.SMS_RECEIVED");
-        intentFilter.setPriority(999);
-        this.registerReceiver(listener, intentFilter);
-
         // Button listener
         Button button = findViewById(R.id.websiteButton);
         button.setOnClickListener(new View.OnClickListener() {
@@ -92,6 +69,31 @@ public class WebsiteAppActivity extends Activity {
                 Log.i("URLReceived", "URL Received From Search: " + urlFromParent);
             }
         }
+
+        // SMS Received Listener
+        listener = new SmsListener() {
+            @Override
+            public void onSMS(String message) {
+                // Message Format:
+                // Error Code / Type Byte / Message ID Byte
+                if(message.charAt(0) != '0') {
+                    Log.e("Error Code", Character.toString(message.charAt(0)));
+                    return;
+                }
+                if(message.charAt(1) != '1') {
+                    Log.e("Wrong AppType", Character.toString(message.charAt(1)));
+                    return;
+                }
+
+                Log.i("Website Fetch", message);
+                String websiteText = message.substring(3);
+
+                updateWebsiteText(websiteText);
+            }
+        };
+        IntentFilter intentFilter = new IntentFilter("android.provider.Telephony.SMS_RECEIVED");
+        intentFilter.setPriority(999);
+        this.registerReceiver(listener, intentFilter);
     }
 
     public void updateWebsiteText(final String text) {

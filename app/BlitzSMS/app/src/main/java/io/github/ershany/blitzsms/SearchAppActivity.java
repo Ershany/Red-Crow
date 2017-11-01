@@ -119,6 +119,7 @@ public class SearchAppActivity extends Activity {
                 if(loadingComplete) {
                     Intent intent = new Intent();
                     intent.putExtra("searchURL", textViews[1].getText());
+                    Log.i("Sending URL", textViews[1].getText().toString());
                     setResult(RESULT_OK, intent);
                     finish();
                 }
@@ -130,6 +131,7 @@ public class SearchAppActivity extends Activity {
                 if(loadingComplete) {
                     Intent intent = new Intent();
                     intent.putExtra("searchURL", textViews[4].getText());
+                    Log.i("Sending URL", textViews[4].getText().toString());
                     setResult(RESULT_OK, intent);
                     finish();
                 }
@@ -141,6 +143,7 @@ public class SearchAppActivity extends Activity {
                 if(loadingComplete) {
                     Intent intent = new Intent();
                     intent.putExtra("searchURL", textViews[7].getText());
+                    Log.i("Sending URL", textViews[7].getText().toString());
                     setResult(RESULT_OK, intent);
                     finish();
                 }

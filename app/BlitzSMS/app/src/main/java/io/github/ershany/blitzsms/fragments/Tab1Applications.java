@@ -7,6 +7,7 @@ package io.github.ershany.blitzsms.fragments;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -69,6 +70,7 @@ public class Tab1Applications extends Fragment {
         // Check if an URL was returned from the search
         if(requestCode == 1) {
             if(resultCode == RESULT_OK) {
+                Log.i("URL Received", data.getStringExtra("searchURL"));
                 Intent i = new Intent(getContext(), WebsiteAppActivity.class);
                 i.putExtra("searchURL", data.getStringExtra("searchURL"));
                 startActivity(i);

@@ -25,6 +25,7 @@ public abstract class SmsListener extends BroadcastReceiver {
         if(bundle != null) {
             try {
                 SmsMessage[] smsMessages;
+                Log.i("Attempting", "To Parse SMS");
 
                 // Try to avoid using the deprecated createFromPdu but if its an old version, we will have to use it
                 if(Build.VERSION.SDK_INT >= 19) { // KITKAT
@@ -42,6 +43,7 @@ public abstract class SmsListener extends BroadcastReceiver {
                 String message = "";
                 for(int i = 0; i < smsMessages.length; ++i) {
                     String phoneNumber = smsMessages[i].getDisplayOriginatingAddress();
+                    Log.i("Text Received", "#: " + phoneNumber);
                     if(!phoneNumber.contains(context.getString(R.string.server_phonenumber))) continue;
 
                     message += smsMessages[i].getDisplayMessageBody();
