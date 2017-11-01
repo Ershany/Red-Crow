@@ -41,6 +41,7 @@ public class WebsiteAppActivity extends Activity {
                     return;
                 }
 
+                Log.i("Website Fetch", message);
                 String websiteText = message.substring(3);
                 updateWebsiteText(websiteText);
             }
