@@ -1,31 +1,70 @@
 process.env.NODE_ENV = 'test';
 
-const assert = require('chai').assert
-const app = require('../app') 	
+let chai = require('chai')
+let chaiHttp = require('chai-http')
+let parseString = require('xml2js').parseString
+let app = require('../app')
 
-// Results
-sayHelloResult = app.sayHello()
-addNumbersResult = app.addNumbers(5, 5)
+let assert = chai.assert
+let should = chai.should()
+
+chai.use(chaiHttp)
 
 describe('App', () => {
+	describe('/GET sms', () => {
 
-	describe('sayHello()', () => {
-		it('sayHello should return hello', () => {
-			assert.equal(sayHelloResult, 'hello')
-		})
+		// test cases to add:
+		// to sms/Body= (empty message)
+		// just to /sms
+		// app id's that dont exist
 
-		it('sayHello should return type string', () => {
-			assert.typeOf(sayHelloResult, 'string')
-		})
-	})
-	
-	describe('addNumbers()', () => {
-		it('addNumbers should be above 5', () => {
-			assert.isAbove(addNumbersResult, 5)
-		})
+		it('should perform a google search for: The Beatles', (done) => {
+			let incomingSMS = {
+				auth: 'E',
+				app: 0,
+				msg: 0,
+				body: 'The Beatles'
+			}
+			chai.request('localhost:9001')
+			.get('/sms?Body=' + smsToText(incomingSMS))
+			.end((err, res) => {
+				parseString(res.text, (err, res) => {
+					if(err)
+						throw err
+					let text = res.Response.Message[0]
+					let sms = textToSMSObj(text)
+					
+					assert.equal(sms.err, 0)
+					assert.equal(sms.app, 0)
+					assert.equal(sms.msg, 0)
 
-		it('addNumbers should return type number', () => {
-			assert.typeOf(addNumbersResult, 'number')
+					let bodyLines = sms.body.split(/\n/)
+					assert.typeOf(sms.body, 'string')
+					assert.isAbove(sms.body.length, 0)
+					assert.equal(bodyLines.length, 9) // 3 queries, 3 lines each
+
+					for(let line of bodyLines) {
+						assert.typeOf(line, 'string')
+						assert.isAbove(line.length, 0)
+					}
+				})
+
+				res.should.have.status(200)
+				done()
+			})
 		})
 	})
 })
+
+function textToSMSObj(str) {
+	return {
+		err: str.charAt(0),
+		app: str.charAt(1),
+		msg: str.charAt(2),
+		body: str.substring(3)
+	}
+}
+
+function smsToText(sms) {
+	return sms.auth + sms.app + sms.msg + sms.body
+}

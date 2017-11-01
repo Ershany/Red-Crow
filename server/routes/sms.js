@@ -114,11 +114,11 @@ function convertJSON(stuff) {
 
 	for(let link of stuff.links) {
 		res += link.title.replace(/\n/g, ' ') + '\n'
-		res += link.url.replace(/\n/g, ' ') + '\n'
-		res += link.desc.replace(/\n/g, ' ') + '\n'
+			+ link.url.replace(/\n/g, ' ') + '\n'
+			+ link.desc.replace(/\n/g, ' ') + '\n'
 	}
 
-	return res
+	return res.slice(0, -1)
 }
 
 module.exports = { getSMS }

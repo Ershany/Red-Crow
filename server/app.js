@@ -16,12 +16,3 @@ app.route('/sms').get(sms.getSMS)
 app.listen(PORT, () => {
 	log.info('Express @ localhost:%d', PORT)
 })
-
-module.exports = {
-	sayHello: () => {
-		return 'hello'
-	},
-	addNumbers: (a, b) => {
-		return a + b
-	}
-}
