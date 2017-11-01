@@ -3,9 +3,7 @@
 let winston = require('winston')
 let config = require('winston/lib/winston/config');
 
-let log = new (winston.Logger)({
-	transports: []
-})
+let log = new winston.Logger
 
 if(process.env.NODE_ENV !== 'test') {
 	log.add(winston.transports.Console, {

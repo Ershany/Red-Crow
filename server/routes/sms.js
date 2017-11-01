@@ -5,16 +5,19 @@ let MessagingResponse = require('twilio').twiml.MessagingResponse
 
 let log = require('../log')
 let google = require('../google') // look into requiring the original
-google.resultsPerPage = 10
 // let decode = require('../encryption').decode
 // let encode = require('../encryption').encode
 function decode(str) { return str }
 function encode(str) { return str }
 
 function getSMS(req, res) {
-	let twiml = new MessagingResponse()
-	// log.info(req.query) // information about the phone messaging
+	// log.info(req.query)
+	// log the information about the phone messaging
+	// only save the needed information to the sms object
 
+
+	let twiml = new MessagingResponse()
+	let number = req.query.From || 'HTTP'
 	let q = decode(req.query.Body) || ''
 	let sms = {
 		auth: q.charAt(0),
@@ -23,11 +26,17 @@ function getSMS(req, res) {
 		body: q.substring(3)
 	}
 
-	log.info('SMS Received:', JSON.stringify(sms))
+	log.info('SMS %s:', number, sms)
+
+	if(q.length < 3) {
+		log.warn('incomplete message')
+		replyWith('incomplete message', sms, '1')
+		return
+	}
 
 	if(sms.auth != 'E') {
 		log.warn('auth failed')
-		replyWith('auth failed', sms, '1')
+		replyWith('auth failed', sms, '2')
 		return
 	}
 
@@ -40,7 +49,7 @@ function getSMS(req, res) {
 			break
 		default:
 			log.warn('wrong app')
-			replyWith('wrong app', sms, '2')
+			replyWith('wrong app', sms, '3')
 			break
 	}
 
@@ -51,7 +60,6 @@ function getSMS(req, res) {
 		res.writeHead(200, {'Content-Type': 'text/xml'})
 		res.end(twiml.toString())
 
-		let number = req.query.From || 'the browser'
 		log.info('Sent', reply.length, 'bytes to', number)
 	}
 
@@ -63,19 +71,22 @@ function getSMS(req, res) {
 				let data = body.replace(/<.*?>/g, '').replace(/\t|\r|\n/g, '')
 				replyWith(data, sms)
 			} else {
-				replyWith('http failed', sms, '3')
+				log.warn('http failed')
+				replyWith('http failed', sms, '4')
 			}
 		})
 	}
 
 	function search(query) {
-		// google search here
 		let data = { links: [] }
-		let nextCounter = 0
 		let printedCount = 0
+		google.resultsPerPage = 10
 		google(query, (err, res) => {
-			if(err)
-				throw err
+			if(err) {
+				log.warn('search failed')
+				replyWith('search failed', sms, '5')
+				return
+			}
 			for (let link of res.links) {
 				if (link.title == '' || link.href == null || link.title == null)
 					continue
