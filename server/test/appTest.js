@@ -1,3 +1,5 @@
+process.env.NODE_ENV = 'test';
+
 const assert = require('chai').assert
 const app = require('../app') 	
 
