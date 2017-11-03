@@ -115,3 +115,6 @@ typings/
 # dotenv environment variables file
 .env
 server/package-lock.json
+app/BlitzSMS/.idea/misc.xml
+app/BlitzSMS/build.gradle
+app/BlitzSMS/gradle/wrapper/gradle-wrapper.properties
