@@ -6,7 +6,8 @@ let MigrateTask = require('migrate-orm2')
 
 // TODO: Add foreign key relationships
 
-function connect(dbString) {
+function connect(db) {
+	let dbString = dbToString(db)
 	// TODO: had to 'create database smsblitz;' manually
 	orm.connect(dbString, (err, db) => {
 		if(err) throw err
@@ -51,6 +52,10 @@ function connect(dbString) {
 			// })
 		})
 	})
+}
+
+function dbToString(db) {
+	return 'mysql://' + db.user + ':' + db.pass + '@' + db.host + '/' + db.db
 }
 
 module.exports = { connect }

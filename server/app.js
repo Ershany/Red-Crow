@@ -5,11 +5,12 @@ let express = require('express')
 let log = require('./log')
 let dbms = require('./dbms')
 let sms = require('./routes/sms')
+let config = require('./config')
 
-const PORT = 9001
+const PORT = config.port
 let app = express()
 
-dbms.connect('mysql://root:potato@localhost/smsblitz')
+dbms.connect(config.database)
 
 app.route('/sms').get(sms.getSMS)
 

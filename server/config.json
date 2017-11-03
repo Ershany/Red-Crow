@@ -1,0 +1,16 @@
+{
+	"port": 9001,
+	"database": {
+		"host": "localhost",
+		"db":   "smsblitz",
+		"user": "root",
+		"pass": "potato"
+	},
+	"whitelist": [
+		"HTTP",
+		"+16137954472",
+		"+16136330139",
+		"+17056538779",
+		"+16138890890"
+	]
+}

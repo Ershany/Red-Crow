@@ -5,17 +5,11 @@ let MessagingResponse = require('twilio').twiml.MessagingResponse
 
 let log = require('../log')
 let google = require('../google') // look into requiring the original
+let cfg = require('../config')
 // let decode = require('../encryption').decode
 // let encode = require('../encryption').encode
 function decode(str) { return str }
 function encode(str) { return str }
-
-let whitelist = [
-	'HTTP',
-	'+16137954472',
-	'+16136330139',
-	'+17056538779'
-] // TODO add Tim's number
 
 function getSMS(req, res) {
 	// log.info(req.query)
@@ -32,7 +26,7 @@ function getSMS(req, res) {
 		body: q.substring(3)
 	}
 
-	if(!whitelist.includes(number)) {
+	if(!cfg.whitelist.includes(number)) {
 		log.warn('non-whitelisted number')
 		replyWith('non-whitelisted number', sms, '7')
 		return
@@ -67,7 +61,7 @@ function getSMS(req, res) {
 
 	function replyWith(str, sms, err = '0') {
 		let header = err + sms.app + sms.msg
-		if(str.length > 2000)
+		if(str.length > 2000 && number != 'HTTP')
 			str = 'error: result too large'
 		let reply = encode(header + str.toString())
 		twiml.message(reply)
@@ -77,7 +71,8 @@ function getSMS(req, res) {
 		log.info('Sent', reply.length, 'bytes to', number)
 	}
 
-	function webpage(link) {
+	function webpage(link) { // , done, change replyWith to done and put each of these features in a seperate module
+		// TODO have a folder with all the feature modules in it
 		if(!link.startsWith('http'))
 			link = `http://${link}`;
 		request(link, (err, res, body) => {
