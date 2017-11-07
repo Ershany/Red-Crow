@@ -55,7 +55,7 @@ function connect(db) {
 }
 
 function dbToString(db) {
-	return 'mysql://' + db.user + ':' + db.pass + '@' + db.host + '/' + db.db
+	return `mysql://${db.user}:${db.pass}@${db.host}/${db.db}`
 }
 
 module.exports = { connect }

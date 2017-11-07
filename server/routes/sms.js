@@ -1,11 +1,13 @@
 'use strict'
 
-let request = require('request')
 let MessagingResponse = require('twilio').twiml.MessagingResponse
 
 let log = require('../log')
-let google = require('../google') // look into requiring the original
 let cfg = require('../config')
+
+let search = require('../features/search')
+let webpage = require('../features/webpage')
+
 // let decode = require('../encryption').decode
 // let encode = require('../encryption').encode
 function decode(str) { return str }
@@ -48,10 +50,10 @@ function getSMS(req, res) {
 
 	switch(sms.app) {
 		case '0':
-			search(sms.body)
+			search(sms, replyWith)
 			break
 		case '1':
-			webpage(sms.body)
+			webpage(sms, replyWith)
 			break
 		default:
 			log.warn('wrong app')
@@ -69,65 +71,7 @@ function getSMS(req, res) {
 		res.end(twiml.toString())
 
 		log.info('Sent', reply.length, 'bytes to', number)
-	}
-
-	function webpage(link) { // , done, change replyWith to done and put each of these features in a seperate module
-		// TODO have a folder with all the feature modules in it
-		if(!link.startsWith('http'))
-			link = `http://${link}`;
-		request(link, (err, res, body) => {
-			if(!err && res.statusCode === 200) {
-				let data = body.replace(/<.*?>/g, '').replace(/\t|\r|\n/g, '')
-				replyWith(data, sms)
-			} else {
-				log.warn('http failed')
-				replyWith('http failed', sms, '4')
-			}
-		})
-	}
-
-	function search(query) {
-		let data = { links: [] }
-		let printedCount = 0
-		google.resultsPerPage = 10
-		google(query, (err, res) => {
-			if(err) {
-				log.warn('search failed')
-				replyWith('search failed', sms, '5')
-				return
-			}
-			for (let link of res.links) {
-				if (link.title == '' || link.href == null || link.title == null)
-					continue
-				if (link.title.includes ('Image') || link.title.includes('Youtube') || link.href.includes('https://www.youtube'))
-					continue
-
-				data.links.push({
-					title: link.title,
-					url: link.href,
-					desc: link.description
-				})
-
-				printedCount++
-				if (printedCount == 3)
-					break
-			}
-
-			replyWith(convertJSON(data), sms)
-		})
-	}
-}
-
-function convertJSON(stuff) {
-	let res = ''
-
-	for(let link of stuff.links) {
-		res += link.title.replace(/\n/g, ' ') + '\n'
-			+ link.url.replace(/\n/g, ' ') + '\n'
-			+ link.desc.replace(/\n/g, ' ') + '\n'
-	}
-
-	return res.slice(0, -1)
+	}	
 }
 
 module.exports = { getSMS }
