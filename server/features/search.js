@@ -2,10 +2,10 @@
 
 let log = require('../log')
 let google = require('../google') // look into requiring the original
+let config = require('../config')
 
 function search(sms, done) {
 	let data = []
-	google.resultsPerPage = 10
 
 	google(sms.body, (err, res) => {
 		if(err) {
@@ -25,7 +25,7 @@ function search(sms, done) {
 				desc: link.description
 			})
 
-			if (data.length == 3)
+			if (data.length == config.search_limit)
 				break
 		}
 

@@ -5,6 +5,7 @@ process.env.NODE_ENV = 'test';
 let chai = require('chai')
 let chaiHttp = require('chai-http')
 let parseString = require('xml2js').parseString
+let config = require('../config')
 let app = require('../app')
 
 let assert = chai.assert
@@ -47,7 +48,7 @@ describe('App', () => {
 
 					assert.typeOf(sms.body, 'string')
 					assert.isAbove(sms.body.length, 0)
-					assert.isBelow(sms.body.length, 2000) // 2k char limit
+					assert.isBelow(sms.body.length, config.max_bytes) // 2k char limit
 					// assert.lengthOf(bodyLines, 9) // 3 queries, 3 lines each
 
 					// for(let line of bodyLines) {

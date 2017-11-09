@@ -1,0 +1,8 @@
+Duties:
+	Seperated features into seperate modules to make expansion easier
+	Added a server configuration file
+	Implemented a way to execute java programs from the server (middleware)
+	Added a whitelist, to prevent random numbers from using the service for now
+	Researched other text messaging services
+
+Total Time: 7 Hours

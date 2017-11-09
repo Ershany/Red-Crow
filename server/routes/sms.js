@@ -3,7 +3,7 @@
 let MessagingResponse = require('twilio').twiml.MessagingResponse
 
 let log = require('../log')
-let cfg = require('../config')
+let config = require('../config')
 
 let search = require('../features/search')
 let webpage = require('../features/webpage')
@@ -31,7 +31,7 @@ function getSMS(req, res) {
 			body: q.substring(3)
 		}
 
-		if(!cfg.whitelist.includes(number)) {
+		if(!config.whitelist.includes(number)) {
 			log.warn('non-whitelisted number')
 			replyWith('non-whitelisted number', sms, '7')
 			return
@@ -67,10 +67,11 @@ function getSMS(req, res) {
 
 	function replyWith(str, sms, err = '0') {
 		let header = err + sms.app + sms.msg
-		if(str.length > 2000 && number != 'HTTP')
+		if(str.length > config.max_bytes && number != 'HTTP')
 			str = 'error: result too large'
 		// TODO: change 999 with last 3 digits of req.query.FromNumber
 		encode(header + str.toString(), 999, (err, stdout, stderr) => {
+			if(err)
 				throw err
 
 			twiml.message(stdout)

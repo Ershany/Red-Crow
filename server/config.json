@@ -1,5 +1,7 @@
 {
 	"port": 9001,
+	"max_bytes": 2000,
+	"search_limit": 3,
 	"database": {
 		"host": "localhost",
 		"db":   "smsblitz",
@@ -12,5 +14,18 @@
 		"+16136330139",
 		"+17056538779",
 		"+16138890890"
+	],
+	"errors": [
+		"Non-Whitelisted Phone Number",
+
+		"Incomplete Message",
+		"Authentification Failure",
+		"Non-Existent Application",
+		"Message ID Problem",
+
+		"Incorrectly Formatted Request",
+		"Result Too Large",
+		"HTTP Request Failure",
+		"Google Search Failure"
 	]
 }
