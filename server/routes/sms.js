@@ -8,11 +8,10 @@ let cfg = require('../config')
 let search = require('../features/search')
 let webpage = require('../features/webpage')
 
-// let decode = require('../encryption').decode
-// let encode = require('../encryption').encode
-function decode(str) { return str }
-function encode(str) { return str }
+let decode = require('../encryption').decode
+let encode = require('../encryption').encode
 
+// TODO: bypass encryption on when number is HTTP
 function getSMS(req, res) {
 	// log.info(req.query)
 	// log the information about the phone messaging
@@ -20,57 +19,65 @@ function getSMS(req, res) {
 
 	let twiml = new MessagingResponse()
 	let number = req.query.From || 'HTTP'
-	let q = decode(req.query.Body) || ''
-	let sms = {
-		auth: q.charAt(0),
-		app : q.charAt(1),
-		msg : q.charAt(2),
-		body: q.substring(3)
-	}
+	// TODO: change 999 to actual last 3 digits of phone number
 
-	if(!cfg.whitelist.includes(number)) {
-		log.warn('non-whitelisted number')
-		replyWith('non-whitelisted number', sms, '7')
-		return
-	}
+	decode(req.query.Body, 999, (err, stdout, stderr) => {
+		let q = stdout || ''
 
-	log.info('SMS %s:', number, sms)
+		let sms = {
+			auth: q.charAt(0),
+			app : q.charAt(1),
+			msg : q.charAt(2),
+			body: q.substring(3)
+		}
 
-	if(q.length < 3) {
-		log.warn('incomplete message')
-		replyWith('incomplete message', sms, '1')
-		return
-	}
+		if(!cfg.whitelist.includes(number)) {
+			log.warn('non-whitelisted number')
+			replyWith('non-whitelisted number', sms, '7')
+			return
+		}
 
-	if(sms.auth != 'E') {
-		log.warn('auth failed')
-		replyWith('auth failed', sms, '2')
-		return
-	}
+		log.info('SMS %s:', number, sms)
 
-	switch(sms.app) {
-		case '0':
-			search(sms, replyWith)
-			break
-		case '1':
-			webpage(sms, replyWith)
-			break
-		default:
-			log.warn('wrong app')
-			replyWith('wrong app', sms, '3')
-			break
-	}
+		if(q.length < 3) {
+			log.warn('incomplete message')
+			replyWith('incomplete message', sms, '1')
+			return
+		}
+
+		if(sms.auth != 'E') {
+			log.warn('auth failed')
+			replyWith('auth failed', sms, '2')
+			return
+		}
+
+		switch(sms.app) {
+			case '0':
+				search(sms, replyWith)
+				break
+			case '1':
+				webpage(sms, replyWith)
+				break
+			default:
+				log.warn('wrong app')
+				replyWith('wrong app', sms, '3')
+				break
+		}
+	})
 
 	function replyWith(str, sms, err = '0') {
 		let header = err + sms.app + sms.msg
 		if(str.length > 2000 && number != 'HTTP')
 			str = 'error: result too large'
-		let reply = encode(header + str.toString())
-		twiml.message(reply)
-		res.writeHead(200, {'Content-Type': 'text/xml'})
-		res.end(twiml.toString())
+		// TODO: change 999 with last 3 digits of req.query.FromNumber
+		encode(header + str.toString(), 999, (err, stdout, stderr) => {
+				throw err
 
-		log.info('Sent', reply.length, 'bytes to', number)
+			twiml.message(stdout)
+			res.writeHead(200, {'Content-Type': 'text/xml'})
+			res.end(twiml.toString())
+			log.info('Sent', stdout.length, 'bytes to', number)
+		})
 	}	
 }
 
