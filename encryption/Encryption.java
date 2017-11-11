@@ -18,7 +18,7 @@ public class Encryption{
 		for (int i = 0; i < this.message.size();i++) {
 			s += this.message.get(i);
 		}
-		return s;
+		System.out.println(s);
 	}
 
 	/*
@@ -57,7 +57,7 @@ public class Encryption{
 	In/outs:
 	*/
 	public String getMessage() {
-		 return this.toString();
+		 System.out.println( this.toString());
 	}
 
 	/*
