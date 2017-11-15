@@ -2,7 +2,7 @@
 
 let exec = require('child_process').exec
 
-const bin_dir = 'bin.' // ./bin/ do i need to specify package for this to work
+const bin_dir = 'java_files.' // ./bin/ do i need to specify package for this to work
 
 function encode(str, num, done) {
 	str = str.replace(/"/g, '\'').replace(/\n/g, '---')
