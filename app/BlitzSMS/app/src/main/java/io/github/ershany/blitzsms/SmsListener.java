@@ -18,7 +18,7 @@ import io.github.ershany.blitzsms.utils.OnSMS;
 
 public class SmsListener extends BroadcastReceiver {
 
-    private static SmsListener singleton = new SmsListener();
+    private static final SmsListener singleton = new SmsListener();
 
     private static final SmsManager smsManager = SmsManager.getDefault();
     private static OnSMS smsHandle;

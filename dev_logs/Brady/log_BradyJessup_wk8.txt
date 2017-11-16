@@ -1,0 +1,12 @@
+Achievements:
+-Researched solutions for fixing exceptions being thrown on the frontend android app
+-Researched and studied design patterns
+-Rewrote the SMS Listener to use a Singleton design pattern
+-Combined the singleton design pattern for the SMS Listener with the Strategy design pattern. This works perfectly because there are multiple ways that SMS will be handled for this app, so being able to easily interchange the way SMS is handled is crucial
+-Below you can find a writeup on the 3 design patterns that are used on the frontend android application
+
+Total Time: 7 hours
+
+Frontend is now using the "Singleton" design pattern for the SMS Listener. We also combined it with the "Strategy" design pattern, so we can easily interchange how SMS is received which is crucial for our application since we have many different apps.
+Also the "Template Method" design pattern is used extensively on the frontend android classes. Like fragments and stuff, which we use extensively to accomplish things.
+Those are the 3 diffferent design patterns that are used on the frontend android application.
