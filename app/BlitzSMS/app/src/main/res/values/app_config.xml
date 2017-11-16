@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--    Actual Server Number -->
-    <!--<string name="server_phonenumber">6139099701</string>-->
-    <string name="server_phonenumber">6136330139</string>
+    <string name="server_phonenumber">6139099701</string>
 </resources>
