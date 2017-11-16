@@ -16,6 +16,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import io.github.ershany.blitzsms.utils.OnSMS;
+
+import static android.R.id.message;
+
 public class WebsiteAppActivity extends Activity {
 
     private final SmsManager smsManager = SmsManager.getDefault();
@@ -25,6 +29,7 @@ public class WebsiteAppActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.website_app_activity);
+        listener = SmsListener.getInstance();
 
         // Button listener
         Button button = findViewById(R.id.websiteButton);
@@ -71,8 +76,7 @@ public class WebsiteAppActivity extends Activity {
         }
 
         // SMS Received Listener
-        listener = new SmsListener() {
-            @Override
+        OnSMS handle = new OnSMS() {
             public void onSMS(String message) {
                 // Message Format:
                 // Error Code / Type Byte / Message ID Byte
@@ -91,6 +95,7 @@ public class WebsiteAppActivity extends Activity {
                 updateWebsiteText(websiteText);
             }
         };
+        listener.setSMSHandle(handle);
         IntentFilter intentFilter = new IntentFilter("android.provider.Telephony.SMS_RECEIVED");
         intentFilter.setPriority(999);
         this.registerReceiver(listener, intentFilter);

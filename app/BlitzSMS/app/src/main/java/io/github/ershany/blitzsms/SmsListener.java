@@ -14,9 +14,32 @@ import android.telephony.SmsManager;
 import android.telephony.SmsMessage;
 import android.util.Log;
 
-public abstract class SmsListener extends BroadcastReceiver {
+import io.github.ershany.blitzsms.utils.OnSMS;
 
-    private final SmsManager smsManager = SmsManager.getDefault();
+public class SmsListener extends BroadcastReceiver {
+
+    private static SmsListener singleton = new SmsListener();
+
+    private static final SmsManager smsManager = SmsManager.getDefault();
+    private static OnSMS smsHandle;
+
+
+    private SmsListener() {
+        // Default SMS Handle Declaration
+        smsHandle = new OnSMS() {
+            public void onSMS(String message) {
+                Log.i("Default SMS", "Default Handle w/ msg: " + message);
+            }
+        };
+    }
+
+    public static SmsListener getInstance() {
+        return singleton;
+    }
+
+    public static void setSMSHandle(OnSMS smsHandle) {
+        SmsListener.smsHandle = smsHandle;
+    }
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -53,14 +76,12 @@ public abstract class SmsListener extends BroadcastReceiver {
                 }
 
                 if(!message.isEmpty()) {
-                    onSMS(message);
+                    smsHandle.onSMS(message);
                 }
             } catch(Exception e) {
                 Log.d("Exception - SmsListener", e.getMessage());
             }
         }
     }
-
-    public abstract void onSMS(String message);
 
 }

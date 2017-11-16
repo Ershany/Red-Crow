@@ -18,6 +18,8 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import io.github.ershany.blitzsms.utils.OnSMS;
+
 public class SearchAppActivity extends Activity {
 
     private final SmsManager smsManager = SmsManager.getDefault();
@@ -33,6 +35,7 @@ public class SearchAppActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.search_app_activity);
         loadingComplete = false;
+        listener = SmsListener.getInstance();
 
         // Store the pointers to all of the textviews
         textViews = new TextView[numSearches * 3];
@@ -47,8 +50,7 @@ public class SearchAppActivity extends Activity {
         TextView desc3 = (TextView) findViewById(R.id.descTextView3);       textViews[8] = desc3;
 
         // SMS Received Listener
-        listener = new SmsListener() {
-            @Override
+        OnSMS handle = new OnSMS() {
             public void onSMS(String message) {
                 // Message Format:
                 // Error Code / Type Byte / Message ID Byte
@@ -73,6 +75,7 @@ public class SearchAppActivity extends Activity {
                 loadingComplete = true;
             }
         };
+        listener.setSMSHandle(handle);
         IntentFilter intentFilter = new IntentFilter("android.provider.Telephony.SMS_RECEIVED");
         intentFilter.setPriority(999);
         this.registerReceiver(listener, intentFilter);
