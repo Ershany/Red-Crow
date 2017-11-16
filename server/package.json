@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "test": "mocha",
-    "java": "javac bin/*.java",
+    "java": "javac java_files/*.java",
     "start": "node app.js",
     "fk": "mysql < ./db_scripts/fk_setup.sql",
     "todo": "grep -R --exclude-dir=node_modules TODO --exclude=package.json"

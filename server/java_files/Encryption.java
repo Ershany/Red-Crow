@@ -1,4 +1,4 @@
-package bin;
+package java_files;
 
 public class Encryption {
 
