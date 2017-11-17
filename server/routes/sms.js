@@ -15,7 +15,7 @@ function getSMS(sms, done) {
 	// only save the needed information to the sms object
 
 	if(!config.whitelist.includes(sms.number))
-		return done(null, replyWith(null, sms, 7))
+		return done(null, replyWith(null, sms, 6))
 
 	log.info('SMS:', sms)
 
@@ -79,7 +79,7 @@ module.exports = function(req, res, next) {
 			res.Body = replyWith(null, sms, err)
 		} else {
 			if(data.length > config.max_bytes && sms.number != 'HTTP') {
-				res.Body = replyWith(null, sms, 9)
+				res.Body = replyWith(null, sms, 7)
 			} else {
 				res.Body = data
 			}
