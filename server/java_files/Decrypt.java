@@ -5,7 +5,9 @@ public class Decrypt{
     String message = arg[1];
     int z = Integer.parseInt(arg[0]);
     String newMessage = "";
-
+    while (z > 126){
+      z-=94;
+    }
     for (int a = 0;a < message.length();a ++) {
       int change = message.charAt(a);
       if (change >= 32 || change <= 126) {
