@@ -1,0 +1,9 @@
+Achievements:
+-Researched design patterns
+-Added all of the UI to the news app
+-Cleaned up some magic numbers on the frontend
+-Added the logic to the news app, all we have to do is finish the development on the server's web scrapping and we can use this app
+-Button on news gets delayed when the user requests the news. The UI will also display the date. We can use this when we persist this data in their history
+-Touched up the UI for searches. The search is now displayed after the user requests a search. This way the user knows what they searched and we can persist this data in their history
+
+Total Time: 8 hours
