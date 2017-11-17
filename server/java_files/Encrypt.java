@@ -1,47 +1,55 @@
 package java_files;
 
 public class Encrypt{
+  private static boolean debug = false;
   public static void main(String[] arg) {
     String[] message = arg;
     int z = Integer.parseInt(arg[0]);
     String newMessage = "";
-    while (z > 52){
-      z-=52;
+    while (z > 26){
+      z-=25;
     }
-    //System.out.print(z+"\n");
+    if (debug) System.out.print(z+"\n");
     for(int j = 1;j<message.length;j++){
-    for (int a = 0;a < message[j].length();a ++) {
-      int change = message[j].charAt(a);
-        //System.out.print(change+"\n");
-        if (change <= 90&&change >= 65){
-          //System.out.print("UPPER\n");
-          if (change + z > 90){
-            change = change + z - 26;
+      StringBuilder rev = new StringBuilder();
+      for (int a = 0;a < message[j].length();a ++) {
+
+        int change = message[j].charAt(a);
+          if (debug) System.out.print(change+"\n");
+          if (change <= 90&&change >= 65){
+            if (debug) System.out.print("UPPER\n");
+            if (change + z > 90){
+              change = change + z - 26;
+            }
+            else if (change + z < 65){
+              change = change + z + 26;
+            }
+            else{
+              change = change + z;
+            }
           }
-          else if (change + z < 65){
-            change = change + z + 26;
+          else if (change >= 96&&change <= 122){
+            if (debug) System.out.print("LOWER\n");
+            if (change + z > 122){
+              change = change + z - 26;
+            }
+            else if (change + z < 96){
+              change = change + z + 26;
+            }
+            else{
+              change = change + z;
+            }
           }
-          else{
-            change = change + z;
-          }
+          if (debug) System.out.println(change+"\n");
+          rev.append ((char)change);
         }
-        else if (change >= 96&&change <= 122){
-          //System.out.print("LOWER\n");
-          if (change + z > 122){
-            change = change + z - 26;
-          }
-          else if (change + z < 96){
-            change = change + z + 26;
-          }
-          else{
-            change = change + z;
-          }
+        rev = rev.reverse();
+        if (j != message.length){
+          rev.append(' ');
         }
-        //System.out.println(change+"\n");
-      newMessage += (char)change;
+        newMessage += rev.toString();
+      }
+
+      System.out.print(newMessage);
     }
-    newMessage += " ";
-  }
-  System.out.print(newMessage);
-}
 }
