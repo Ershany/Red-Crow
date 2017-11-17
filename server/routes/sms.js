@@ -9,43 +9,34 @@ let search = require('../features/search')
 let webpage = require('../features/webpage')
 
 // TODO: bypass encryption on when number is HTTP
-function getSMS(query) {
+function getSMS(sms, done) {
 	// log.info(query)
 	// log the information about the phone messaging
 	// only save the needed information to the sms object
 
-	let q = query.Body || ''
-	let number = query.From || 'HTTP'
+	if(!config.whitelist.includes(sms.number))
+		return done(null, replyWith(null, sms, 7))
 
-	let sms = {
-		auth: q.charAt(0),
-		app : q.charAt(1),
-		msg : q.charAt(2),
-		body: q.substring(3)
-	}
+	log.info('SMS:', sms)
 
-	if(!config.whitelist.includes(number))
-		return replyWith(null, sms, 7)
-
-	log.info('SMS %s:', number, sms)
-
-	if(q.length < 3)
-		return replyWith(null, sms, 1)
+	if(sms.msg == '')
+		return done(null, replyWith(null, sms, 1))
 
 	if(sms.auth != 'E')
-		return replyWith(null, sms, 2)
+		return done(null, replyWith(null, sms, 2))
 
 	switch(sms.app) {
 		case '0':
 			// search(sms, replyWith)
-			return '000search'
+			return search(sms, done)
 			break
 		case '1':
 			// webpage(sms, replyWith)
-			return '010website'
+			return webpage(sms, done)
+			// return done(null, '010website')
 			break
 		default:
-			return replyWith(null, sms, 3)
+			return done(null, replyWith(null, sms, 3))
 			break
 	}
 }
@@ -73,6 +64,27 @@ function replyWith(str, sms, err = 0) {
 }
 
 module.exports = function(req, res, next) {
-	res.Body = getSMS(req.query)
-	next()
+	const q = req.query.Body || ''
+
+	let sms = {
+		number: req.query.From || 'HTTP',
+		auth: q.charAt(0),
+		app : q.charAt(1),
+		msg : q.charAt(2),
+		body: q.substring(3)
+	}
+
+	getSMS(sms, (err, data) => {
+		if(err) {
+			res.Body = replyWith(null, sms, err)
+		} else {
+			if(data.length > config.max_bytes && sms.number != 'HTTP') {
+				res.Body = replyWith(null, sms, 9)
+			} else {
+				res.Body = data
+			}
+		}
+
+		next()
+	})
 }

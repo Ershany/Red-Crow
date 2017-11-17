@@ -46,10 +46,12 @@ describe('Encryption', () => {
 	describe('Encoding <---> Decoding', () => {
 
 		it('should decode the encoded value of hello to get hello back', (done) => {
-			let str1 = 'hello'
-			encode(str1, 999, (err, stdout, stderr) => {
-				decode(stdout, 666, (err, stdout, stderr) => {
-					assert.equal(stdout, str1)
+			const str1 = 'hello'
+			const num1 = 472
+			encode(str1, num1, (err1, stdout1, stderr1) => {
+
+				decode(stdout1, num1, (err2, stdout2, stderr2) => {
+					assert.equal(stdout2, str1)
 					done()
 				})
 				// decode with different number and it shouldn't work

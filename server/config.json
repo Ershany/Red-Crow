@@ -21,12 +21,12 @@
 		"Authentification Failure",
 		"Non-Existent Application",
 
+		"HTTP Request Failure",
+		"Google Search Failure",
 		"Message ID Problem",
 
-		"Incorrectly Formatted Request",
-		"Result Too Large",
 		"Non-Whitelisted Phone Number",
-		"HTTP Request Failure",
-		"Google Search Failure"
+		"Incorrectly Formatted Request",
+		"Result Too Large"
 	]
 }
