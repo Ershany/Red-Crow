@@ -43,6 +43,6 @@ public class Decrypt{
 
 
   }
-  System.out.println(newMessage);
+  System.out.print(newMessage);
 }
 }
