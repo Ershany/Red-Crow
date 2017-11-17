@@ -1,0 +1,7 @@
+
+Duties:
+  New tabs added to ui
+  Started history tab
+  Researched passing info between fragments
+
+Total Time: 5 Hours
