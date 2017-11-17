@@ -16,15 +16,16 @@
 		"+16138890890"
 	],
 	"errors": [
-		"Non-Whitelisted Phone Number",
-
+		"No Error",
 		"Incomplete Message",
 		"Authentification Failure",
 		"Non-Existent Application",
+
 		"Message ID Problem",
 
 		"Incorrectly Formatted Request",
 		"Result Too Large",
+		"Non-Whitelisted Phone Number",
 		"HTTP Request Failure",
 		"Google Search Failure"
 	]

@@ -22,14 +22,4 @@ function decode(str, num, done) {
 	exec(cmd, done)
 }
 
-// TODO: move these to a test file
-
-// encode("hello", 472, (err, stdout, stderr) => {
-// 	console.log('error: %s\nstdout: %s\nstderr: %s', err, stdout, stderr)
-// })
-
-// decode("hello", 472, (err, stdout, stderr) => {
-// 	console.log('error: %s\nstdout: %s\nstderr: %s', err, stdout, stderr)
-// })
-
 module.exports = { decode, encode }

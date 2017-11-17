@@ -24,54 +24,55 @@ function getSMS(query) {
 		body: q.substring(3)
 	}
 
-	if(!config.whitelist.includes(number)) {
-		log.warn('non-whitelisted number', number)
-		replyWith('non-whitelisted number', sms, '7')
-		return
-	}
+	if(!config.whitelist.includes(number))
+		return replyWith(null, sms, 7)
 
 	log.info('SMS %s:', number, sms)
 
-	if(q.length < 3) {
-		log.warn('incomplete message')
-		replyWith('incomplete message', sms, '1')
-		return
-	}
+	if(q.length < 3)
+		return replyWith(null, sms, 1)
 
-	if(sms.auth != 'E') {
-		log.warn('auth failed')
-		replyWith('auth failed', sms, '2')
-		return
-	}
+	if(sms.auth != 'E')
+		return replyWith(null, sms, 2)
 
 	switch(sms.app) {
 		case '0':
-			search(sms, replyWith)
+			// search(sms, replyWith)
+			return '000search'
 			break
 		case '1':
-			webpage(sms, replyWith)
+			// webpage(sms, replyWith)
+			return '010website'
 			break
 		default:
-			log.warn('wrong app')
-			replyWith('wrong app', sms, '3')
+			return replyWith(null, sms, 3)
 			break
 	}
 }
 
 // TODO: maybe be able to seperate encoding from here and move to app.js
-function replyWith(str, sms, err = '0') {
+function replyWith(str, sms, err = 0) {
 	let twiml = new MessagingResponse()
 	let header = err + sms.app + sms.msg
-	if(str.length > config.max_bytes && number != 'HTTP')
-		str = 'error: result too large'
+	
+	if(err != 0) {
+		str = config.errors[err]
+		log.warn(config.errors[err])
+	}
+
+	// if(str.length > config.max_bytes && number != 'HTTP') {
+	// 	str = config.errors[6]
+	// }
 
 	twiml.message(header + str.toString())
-	res.writeHead(200, {'Content-Type': 'text/xml'})
+	return twiml.toString()
+	// res.writeHead(200, {'Content-Type': 'text/xml'})
 	// TODO: store the twiml.toString() into the request or response
-	res.end(twiml.toString())
-	log.info('Sent', (header + str.toString()).length, 'bytes to', number)
+	// res.end(twiml.toString())
+	// log.info('Sent', (header + str.toString()).length, 'bytes to', number)
 }
 
 module.exports = function(req, res, next) {
-
+	res.Body = getSMS(req.query)
+	next()
 }

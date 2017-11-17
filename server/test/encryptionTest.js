@@ -45,15 +45,14 @@ describe('Encryption', () => {
 
 	describe('Encoding <---> Decoding', () => {
 
-		it('should encode hello, and that decoded should = hello', (done) => {
+		it('should decode the encoded value of hello to get hello back', (done) => {
 			let str1 = 'hello'
-			encode(str1, 666, (err, stdout, stderr) => {
-				let encodedValue = stdout
-				decode(encodedValue, 666, (err, stdout, stderr) => {
-					let decodedValue = stdout
-					assert.equal(str1, decodedValue)
+			encode(str1, 999, (err, stdout, stderr) => {
+				decode(stdout, 666, (err, stdout, stderr) => {
+					assert.equal(stdout, str1)
 					done()
 				})
+				// decode with different number and it shouldn't work
 			})
 		})
 
