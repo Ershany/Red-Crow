@@ -1,6 +1,6 @@
 package java_files;
 
-public class Encryption {
+public class Nothing {
 
 	public static void main(String[] args) {
 		if(args.length != 3)
