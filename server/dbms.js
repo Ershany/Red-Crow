@@ -8,7 +8,6 @@ let MigrateTask = require('migrate-orm2')
 
 function connect(db) {
 	let dbString = dbToString(db)
-	// TODO: had to 'create database smsblitz;' manually
 	orm.connect(dbString, (err, db) => {
 		if(err) throw err
 		log.info('Connected to MySQL Database - %s', dbString)

@@ -1,0 +1,10 @@
+Duties:
+	Implemented the middleware properly using the express framework
+	Can easily turn on and off encryption on the server-side (app would need to as well)
+		Would require an extra character to each header, for encryption info
+	Cleaned up the server code base
+	Research a new way to seperate data for the response format
+		Using \n doesn't work nicely when trying to encrypt it from the command line
+	Researched and planned type of design patterns and architecture using on the server side
+
+Total Time: 10 Hours
