@@ -1,0 +1,7 @@
+
+Duties:
+  Reworked History and tabs to work with new application layout
+  
+  
+
+Total Time: 2 Hours
