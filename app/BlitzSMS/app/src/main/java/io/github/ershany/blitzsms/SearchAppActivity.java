@@ -26,6 +26,7 @@ public class SearchAppActivity extends Activity {
     private SmsListener listener;
 
     private final int numSearches = 3;
+    private final int numViewsPerSearch = 3;
     private TextView[] textViews;
 
     private boolean loadingComplete;
@@ -38,16 +39,16 @@ public class SearchAppActivity extends Activity {
         listener = SmsListener.getInstance();
 
         // Store the pointers to all of the textviews
-        textViews = new TextView[numSearches * 3];
-        TextView title1 = (TextView) findViewById(R.id.titleTextView1);     textViews[0] = title1;
-        TextView title2 = (TextView) findViewById(R.id.titleTextView2);     textViews[3] = title2;
-        TextView title3 = (TextView) findViewById(R.id.titleTextView3);     textViews[6] = title3;
-        TextView url1 = (TextView) findViewById(R.id.urlTextView1);         textViews[1] = url1;
-        TextView url2 = (TextView) findViewById(R.id.urlTextView2);         textViews[4] = url2;
-        TextView url3 = (TextView) findViewById(R.id.urlTextView3);         textViews[7] = url3;
-        TextView desc1 = (TextView) findViewById(R.id.descTextView1);       textViews[2] = desc1;
-        TextView desc2 = (TextView) findViewById(R.id.descTextView2);       textViews[5] = desc2;
-        TextView desc3 = (TextView) findViewById(R.id.descTextView3);       textViews[8] = desc3;
+        textViews = new TextView[numSearches * numViewsPerSearch];
+        textViews[0] = (TextView) findViewById(R.id.titleTextView1);
+        textViews[3] = (TextView) findViewById(R.id.titleTextView2);
+        textViews[6] = (TextView) findViewById(R.id.titleTextView3);
+        textViews[1] = (TextView) findViewById(R.id.urlTextView1);
+        textViews[4] = (TextView) findViewById(R.id.urlTextView2);
+        textViews[7] = (TextView) findViewById(R.id.urlTextView3);
+        textViews[2] = (TextView) findViewById(R.id.descTextView1);
+        textViews[5] = (TextView) findViewById(R.id.descTextView2);
+        textViews[8] = (TextView) findViewById(R.id.descTextView3);
 
         // SMS Received Listener
         OnSMS handle = new OnSMS() {
@@ -108,6 +109,10 @@ public class SearchAppActivity extends Activity {
                 textViews[6].setText("Loading");
 
                 Log.i("SearchSent", "Search sent: " + message);
+
+                // Display the search
+                TextView searchView = (TextView) findViewById(R.id.searchTitle);
+                searchView.setText(searchString);
             }
         });
 
