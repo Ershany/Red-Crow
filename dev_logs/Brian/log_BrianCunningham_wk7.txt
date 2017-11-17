@@ -1,0 +1,6 @@
+
+Duties:
+  Added feature to allow searching from history
+  Research animation for the splashscreen
+
+Total Time: 6 Hours
