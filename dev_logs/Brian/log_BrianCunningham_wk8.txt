@@ -1,0 +1,6 @@
+
+Duties:
+  Added rudimentary animations to splash screen
+  Researched design patterns
+
+Total Time: 4 Hours
