@@ -33,6 +33,7 @@ function search(sms, done) {
 	})
 }
 
+// TODO change from newline character
 function convertJSON(stuff) {
 	let res = ''
 
