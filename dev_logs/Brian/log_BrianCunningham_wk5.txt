@@ -1,0 +1,6 @@
+
+Duties:
+  Added more resources for improved splash screen
+  Reworked the UI with more tabs and improved layout
+
+Total Time: 4 Hours
