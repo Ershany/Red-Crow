@@ -2,6 +2,7 @@
 	"port": 9001,
 	"max_bytes": 2000,
 	"search_limit": 3,
+	"encryption": false,
 	"database": {
 		"host": "localhost",
 		"db":   "smsblitz",
