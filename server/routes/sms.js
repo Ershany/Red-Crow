@@ -7,6 +7,7 @@ let config = require('../config')
 
 let search = require('../features/search')
 let webpage = require('../features/webpage')
+let news = require('../features/news')
 
 let decode = require('../encryption').decode
 let encode = require('../encryption').encode
@@ -22,7 +23,7 @@ function getSMS(req, res) {
 	// TODO: change 999 to actual last 3 digits of phone number
 
 	decode(req.query.Body, 999, (err, stdout, stderr) => {
-		let q = stdout || ''
+		let q = req.query.Body || ''
 
 		let sms = {
 			auth: q.charAt(0),
@@ -58,6 +59,9 @@ function getSMS(req, res) {
 			case '1':
 				webpage(sms, replyWith)
 				break
+			case '2':
+				news(sms,replyWith)
+				break
 			default:
 				log.warn('wrong app')
 				replyWith('wrong app', sms, '3')
@@ -79,7 +83,7 @@ function getSMS(req, res) {
 			res.end(twiml.toString())
 			log.info('Sent', stdout.length, 'bytes to', number)
 		})
-	}	
+	}
 }
 
 module.exports = { getSMS }

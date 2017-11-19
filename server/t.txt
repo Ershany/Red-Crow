@@ -1,0 +1,3 @@
+5:29:37 PM [32mINFO[39m Express @ localhost:9001
+5:29:41 PM [32mINFO[39m SMS HTTP:
+	{"auth":"E","app":"2","msg":"0","body":""}
