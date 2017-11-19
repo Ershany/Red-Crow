@@ -4,7 +4,7 @@ let cheerio = require('cheerio')
 let request = require('request')
 
 function lyrics(sms, done) {
-	const lyricsLink = sms.toLowerCase().replace(/\s/g, '')
+	const lyricsLink = sms.toLowerCase().replace(/[\s,.]/g, '')
 	const link = `https://www.azlyrics.com/lyrics/${lyricsLink}.html`
 
 	// TODO: check if link is a valid url before doing the request
@@ -12,8 +12,8 @@ function lyrics(sms, done) {
 	request(link, (err, res, body) => {
 		if(!err && res.statusCode === 200) {
 			let $ = cheerio.load(body)
-			let rawData = $('div').eq(21).text()
-			done(null, rawData.trim())
+			const rawData = $('div').eq(21).text().trim()
+			done(null, rawData)
 		} else {
 			done(8)
 		}
@@ -21,7 +21,7 @@ function lyrics(sms, done) {
 }
 
 // TODO: move this to testing
-// lyrics('Machine Gun Kelly/Let You Go', (err, data) => {
+// lyrics('Russ/Psycho, Pt. 2', (err, data) => {
 // 	if(err)
 // 		throw err
 // 	console.log(data)
