@@ -1,85 +1,75 @@
 'use strict'
 
-let MessagingResponse = require('twilio').twiml.MessagingResponse
-
 let log = require('../log')
 let config = require('../config')
+let MessagingResponse = require('twilio').twiml.MessagingResponse
 
-let search = require('../features/search')
-let webpage = require('../features/webpage')
+const feat_dir = '../features/'
+const features = [
+	require(feat_dir + 'search'),
+	require(feat_dir + 'webpage')
+]
 
-let decode = require('../encryption').decode
-let encode = require('../encryption').encode
+function getSMS(sms, done) {
+	log.info('SMS:', sms)
 
-// TODO: bypass encryption on when number is HTTP
-function getSMS(req, res) {
-	// log.info(req.query)
-	// log the information about the phone messaging
-	// only save the needed information to the sms object
+	if(!config.whitelist.includes(sms.number))
+		return done(6)
 
-	let twiml = new MessagingResponse()
-	let number = req.query.From || 'HTTP'
-	// TODO: change 999 to actual last 3 digits of phone number
+	if(!sms.msg)
+		return done(1)
 
-	decode(req.query.Body, 999, (err, stdout, stderr) => {
-		let q = stdout || ''
+	if(sms.auth != 'E')
+		return done(2)
 
-		let sms = {
-			auth: q.charAt(0),
-			app : q.charAt(1),
-			msg : q.charAt(2),
-			body: q.substring(3)
-		}
-
-		if(!config.whitelist.includes(number)) {
-			log.warn('non-whitelisted number')
-			replyWith('non-whitelisted number', sms, '7')
-			return
-		}
-
-		log.info('SMS %s:', number, sms)
-
-		if(q.length < 3) {
-			log.warn('incomplete message')
-			replyWith('incomplete message', sms, '1')
-			return
-		}
-
-		if(sms.auth != 'E') {
-			log.warn('auth failed')
-			replyWith('auth failed', sms, '2')
-			return
-		}
-
-		switch(sms.app) {
-			case '0':
-				search(sms, replyWith)
-				break
-			case '1':
-				webpage(sms, replyWith)
-				break
-			default:
-				log.warn('wrong app')
-				replyWith('wrong app', sms, '3')
-				break
-		}
-	})
-
-	function replyWith(str, sms, err = '0') {
-		let header = err + sms.app + sms.msg
-		if(str.length > config.max_bytes && number != 'HTTP')
-			str = 'error: result too large'
-		// TODO: change 999 with last 3 digits of req.query.FromNumber
-		encode(header + str.toString(), 999, (err, stdout, stderr) => {
-			if(err)
-				throw err
-
-			twiml.message(stdout)
-			res.writeHead(200, {'Content-Type': 'text/xml'})
-			res.end(twiml.toString())
-			log.info('Sent', stdout.length, 'bytes to', number)
-		})
-	}	
+	if(!(sms.app in features))
+		return done(3)
+		
+	return features[sms.app](sms.body, done)
 }
 
-module.exports = { getSMS }
+function replyWith(err, sms, str) {
+	// TODO: incomplete messages need to return with an appID & msgID ...
+	let twiml = new MessagingResponse()
+	let header = (err || 0)  + sms.app + sms.msg
+	
+	if(err) {
+		str = config.errors[err]
+		log.warn(config.errors[err])
+	}
+
+	twiml.message(header + str.toString())
+	return twiml.toString()
+}
+
+module.exports = function(req, res, next) {
+	res.writeHead(200, {'Content-Type': 'text/plain'}) // TODO: should be text/xml
+
+	const q = req.query.Body || ''
+	let sms = {
+		number: req.query.From || 'HTTP',
+		auth: q.charAt(0),
+		app : q.charAt(1),
+		msg : q.charAt(2),
+		body: q.substring(3)
+	}
+
+	getSMS(sms, (err, data) => {
+		if(err) {
+			res.Body = replyWith(err, sms)
+		} else {
+			if(data.length > config.max_bytes && sms.number != 'HTTP') {
+				res.Body = replyWith(7, sms)
+			} else {
+				res.Body = data
+			}
+		}
+
+		// TODO: sent data currently includes the xml portion 
+		log.info(`Sent ${res.Body.length} bytes to ${sms.number}`)
+		if(req.Encryption)
+			next()
+		else
+			res.end(res.Body)
+	})
+}

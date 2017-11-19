@@ -14,7 +14,7 @@ if(process.env.NODE_ENV !== 'test') {
 			return options.timestamp() + ' ' +
 			config.colorize(options.level, options.level.toUpperCase()) + ' ' +
 			(options.message ? options.message : '') +
-			(options.meta && Object.keys(options.meta).length ? '\n\t'+ JSON.stringify(options.meta) : '' )
+			(options.meta && Object.keys(options.meta).length ? ' ' + JSON.stringify(options.meta) : '' )
 		}
 	})
 }

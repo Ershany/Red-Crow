@@ -4,13 +4,11 @@ let log = require('./log')
 let orm = require('orm')
 let MigrateTask = require('migrate-orm2')
 
-// TODO: Add foreign key relationships
-
 function connect(db) {
-	let dbString = dbToString(db)
+	const dbString = dbToString(db)
 	orm.connect(dbString, (err, db) => {
 		if(err) throw err
-		log.info('Connected to MySQL Database - %s', dbString)
+		log.info('Connected to MySQL Database -', dbString)
 		var task = new MigrateTask(db.driver)
 		log.info("Migration framework initialized for Node ORM")
 
