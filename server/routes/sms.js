@@ -25,7 +25,7 @@ function getSMS(sms, done) {
 	if(!(sms.app in features))
 		return done(3)
 		
-	return features[sms.app](sms, done)
+	return features[sms.app](sms.body, done)
 }
 
 function replyWith(err, sms, str) {

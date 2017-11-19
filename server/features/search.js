@@ -6,7 +6,7 @@ let config = require('../config')
 function search(sms, done) {
 	let data = []
 
-	google(sms.body, (err, res) => {
+	google(sms, (err, res) => {
 		if(err)
 			return done(5)
 
