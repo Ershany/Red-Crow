@@ -7,7 +7,9 @@ let MessagingResponse = require('twilio').twiml.MessagingResponse
 const feat_dir = '../features/'
 const features = [
 	require(feat_dir + 'search'),
-	require(feat_dir + 'webpage')
+	require(feat_dir + 'webpage'),
+	undefined,
+	require(feat_dir + 'lyrics')
 ]
 
 function getSMS(sms, done) {
