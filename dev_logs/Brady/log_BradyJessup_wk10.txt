@@ -1,0 +1,4 @@
+Achievements:
+-Added a lyrics app activity
+
+Total Time: 1 hours
