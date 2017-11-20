@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 
+import io.github.ershany.blitzsms.LyricsAppActivity;
 import io.github.ershany.blitzsms.MapsAppActivity;
 import io.github.ershany.blitzsms.NewsAppActivity;
 import io.github.ershany.blitzsms.R;
@@ -56,6 +57,14 @@ public class Tab1Applications extends Fragment {
         bWebsite.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent i = new Intent(getContext(), WebsiteAppActivity.class);
+                startActivity(i);
+            }
+        });
+
+        ImageButton bLyrics = rootView.findViewById(R.id.lyricsAppButton);
+        bLyrics.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent i = new Intent(getContext(), LyricsAppActivity.class);
                 startActivity(i);
             }
         });
