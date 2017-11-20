@@ -8,7 +8,7 @@ const feat_dir = '../features/'
 const features = [
 	require(feat_dir + 'search'),
 	require(feat_dir + 'webpage'),
-	undefined,
+	require(feat_dir + 'news'),
 	require(feat_dir + 'lyrics')
 ]
 
