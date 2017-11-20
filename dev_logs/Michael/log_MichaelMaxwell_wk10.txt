@@ -1,0 +1,8 @@
+Duties:
+	Added a server README file
+	Worked on the design and architecture of the project
+	Namely the Strategy and Facade
+	Cleaned up server code base, a lot
+	Made a lyrics module
+
+Total Time: 9 Hours
