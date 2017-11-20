@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/Ershany/Red-Crow#readme",
   "dependencies": {
+    "cheerio": "^1.0.0-rc.2",
     "compression": "^1.7.1",
     "express": "^4.15.4",
     "google": "^2.1.0",

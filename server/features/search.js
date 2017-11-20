@@ -1,18 +1,15 @@
 'use strict'
 
-let log = require('../log')
 let google = require('../google') // look into requiring the original
 let config = require('../config')
 
 function search(sms, done) {
 	let data = []
 
-	google(sms.body, (err, res) => {
-		if(err) {
-			log.warn('search failed')
-			done('search failed', sms, '5')
-			return
-		}
+	google(sms, (err, res) => {
+		if(err)
+			return done(5)
+
 		for (let link of res.links) {
 			if (link.title == '' || link.href == null || link.title == null)
 				continue
@@ -29,7 +26,7 @@ function search(sms, done) {
 				break
 		}
 
-		done(convertJSON(data), sms)
+		done(null, convertJSON(data))
 	})
 }
 

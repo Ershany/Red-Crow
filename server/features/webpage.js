@@ -1,19 +1,18 @@
 'use strict'
 
-let log = require('../log')
 let request = require('request')
 
 function webpage(sms, done) {
-	let link = sms.body
+	let link = sms
 	if(!link.startsWith('http'))
 		link = `http://${link}`;
+	// TODO: check if link is a valid url before doing the request
 	request(link, (err, res, body) => {
 		if(!err && res.statusCode === 200) {
 			let data = body.replace(/<.*?>/g, '').replace(/\t|\r|\n/g, '')
-			done(data, sms)
+			done(null, data)
 		} else {
-			log.warn('http failed')
-			done('http failed', sms, '4')
+			done(4)
 		}
 	})
 }
