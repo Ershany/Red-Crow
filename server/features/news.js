@@ -1,30 +1,32 @@
+let log = require('../log')
+let cheerio = require('cheerio')
+let request = require('request')
+let config = require('../config')
 
+const link = 'https://www.reddit.com/r/news/'
 
-let log = require('../log');
-let request = require('request');
-let link = 'https://www.reddit.com/r/news/';
+function news(sms, done) {
+	let data = []
 
-function news(sms, done){
-  let data = [];
+	request(link, (err, res, body) => {
+		if(!err && res.statusCode === 200) {
+			let $ = cheerio.load(body)
+			const rawData = $('div').text()
 
-  request(link, (err, res, body) => {
-    if(err) {
-			log.warn('news failed')
-			done('news failed', sms, '5')
-			return
+			// data.push({
+			// 	title: xxx.title, desc: xxx.desc
+			// })
+
+			done(null, rawData)
+			// done(null, convertJSON(data))
+		} else {
+			done(9)
 		}
-    console.log(document.getElementById(title))
-    for(let title of body.title){
-      console.log(title)
-    }
-    //console.log(body.title)
-    //console.log(body)
-
-		done(convertJSON(data), sms)
 	})
 }
 
 // TODO change from newline character
+/*
 function convertJSON(stuff) {
 	let res = ''
 
@@ -36,4 +38,6 @@ function convertJSON(stuff) {
 
 	return res.slice(0, -1)
 }
+*/
+
 module.exports = news
