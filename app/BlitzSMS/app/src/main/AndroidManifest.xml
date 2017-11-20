@@ -50,6 +50,10 @@
             android:name=".WebsiteAppActivity"
             android:label="Blitz SMS">
         </activity>
+        <activity
+            android:name=".LyricsAppActivity"
+            android:label="Blitz SMS">
+        </activity>
     </application>
 
 </manifest>

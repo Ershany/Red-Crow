@@ -12,7 +12,7 @@ public class SplashActivity extends AppCompatActivity {
 
         // Protoype sleep so everyone can see our loading icon
         try {
-            Thread.sleep(2000);
+            Thread.sleep(1500);
         }
         catch(Exception e) {
 
