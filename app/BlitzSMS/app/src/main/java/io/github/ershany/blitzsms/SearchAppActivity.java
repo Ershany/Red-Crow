@@ -9,7 +9,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
-import android.telephony.SmsManager;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -20,11 +19,12 @@ import android.widget.TextView;
 
 import io.github.ershany.blitzsms.utils.OnSMS;
 import io.github.ershany.blitzsms.utils.SmsListener;
+import io.github.ershany.blitzsms.utils.SmsSend;
 
 public class SearchAppActivity extends Activity {
 
-    private final SmsManager smsManager = SmsManager.getDefault();
     private SmsListener listener;
+    private SmsSend smsSend;
 
     private final int numSearches = 3;
     private final int numViewsPerSearch = 3;
@@ -37,6 +37,7 @@ public class SearchAppActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.search_app_activity);
         loadingComplete = false;
+        smsSend = SmsSend.getInstance(this);
 
         // Store the pointers to all of the textviews
         textViews = new TextView[numSearches * numViewsPerSearch];
@@ -93,15 +94,14 @@ public class SearchAppActivity extends Activity {
                 InputMethodManager imm = (InputMethodManager) getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
 
-                // Send the SMS if the user entered a message
+                // SendToServer the SMS if the user entered a message
                 if(searchString.isEmpty()) return;
 
                 // Build the message for the server
                 int messageId = 0;
                 String message = "E0" + messageId + searchString;
 
-                // Later will want to change the last two parameters to a value so we can tell if the sms was sent and received. Thus we can update the frontend
-                smsManager.sendTextMessage(getResources().getString(R.string.server_phonenumber), null, message, null, null);
+                smsSend.SendToServer(message);
 
                 // Prepare the UI for a search
                 textViews[0].setText("Loading");

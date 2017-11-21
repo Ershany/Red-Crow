@@ -8,7 +8,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.IntentFilter;
 import android.os.Bundle;
-import android.telephony.SmsManager;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -18,16 +17,18 @@ import android.widget.TextView;
 
 import io.github.ershany.blitzsms.utils.OnSMS;
 import io.github.ershany.blitzsms.utils.SmsListener;
+import io.github.ershany.blitzsms.utils.SmsSend;
 
 public class LyricsAppActivity extends Activity {
 
-    private final SmsManager smsManager = SmsManager.getDefault();
     private SmsListener listener;
+    private SmsSend smsSend;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.lyrics_app_activity);
+        smsSend = SmsSend.getInstance(this);
 
         // SMS Received Listener
         OnSMS handle = new OnSMS() {
@@ -70,12 +71,12 @@ public class LyricsAppActivity extends Activity {
 
                 String songNameStr = songName.getText().toString().trim();
                 String songArtistStr = songArtist.getText().toString().trim();
+                songName.setText("");
+                songArtist.setText("");
 
                 // Ensure input was given
                 if (songNameStr.isEmpty() || songArtistStr.isEmpty()) {
                     lyricView.setText("Please enter the song's name and artist");
-                    songName.setText("");
-                    songArtist.setText("");
                     return;
                 }
 
@@ -83,8 +84,7 @@ public class LyricsAppActivity extends Activity {
                 int messageId = 0;
                 String message = "E3" + messageId + songArtistStr + "/" + songNameStr;
 
-                // Later will want to change the last two parameters to a value so we can tell if the sms was sent and received. Thus we can update the frontend
-                smsManager.sendTextMessage(getResources().getString(R.string.server_phonenumber), null, message, null, null);
+                smsSend.SendToServer(message);
                 Log.i("Lyric Req", "Lyric Req Sent: " + message);
 
                 // Prepare the UI for a search

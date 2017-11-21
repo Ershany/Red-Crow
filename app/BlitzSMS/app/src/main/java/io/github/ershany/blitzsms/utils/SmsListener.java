@@ -38,6 +38,8 @@ public class SmsListener extends BroadcastReceiver {
         return singleton;
     }
 
+
+
     @Override
     public void onReceive(Context context, Intent intent) {
         Bundle bundle = intent.getExtras();

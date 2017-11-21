@@ -3,7 +3,6 @@ package io.github.ershany.blitzsms;
 import android.app.Activity;
 import android.content.IntentFilter;
 import android.os.Bundle;
-import android.telephony.SmsManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -13,6 +12,7 @@ import java.util.Calendar;
 
 import io.github.ershany.blitzsms.utils.OnSMS;
 import io.github.ershany.blitzsms.utils.SmsListener;
+import io.github.ershany.blitzsms.utils.SmsSend;
 
 /**
  * Created by Brady on 10/15/2017.
@@ -20,8 +20,8 @@ import io.github.ershany.blitzsms.utils.SmsListener;
 
 public class NewsAppActivity extends Activity {
 
-    private final SmsManager smsManager = SmsManager.getDefault();
     private SmsListener listener;
+    private SmsSend smsSend;
 
     private final long buttonMSTimeout = 2500;
     private final int numSearches = 3;
@@ -32,6 +32,7 @@ public class NewsAppActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.news_app_activity);
+        smsSend = SmsSend.getInstance(this);
 
         // Store the pointers to all of the textviews
         textViews = new TextView[numSearches * numViewsPerSearch];
@@ -84,8 +85,7 @@ public class NewsAppActivity extends Activity {
                 int messageId = 0;
                 String message = "E2" + messageId;
 
-                // Later will want to change the last two parameters to a value so we can tell if the sms was sent and received. Thus we can update the frontend
-                smsManager.sendTextMessage(getResources().getString(R.string.server_phonenumber), null, message, null, null);
+                smsSend.SendToServer(message);
 
                 // Prepare the UI for news
                 textViews[0].setText("Loading");
