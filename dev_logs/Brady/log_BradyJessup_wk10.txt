@@ -4,5 +4,6 @@ Achievements:
 -Worked on the design and architecture of the project, more specificly I started designing the retry design pattern
 -Refactored the SMS listener and it's Singleton and Strategy design pattern, now when you request the instance, you must provide the handler you want it to use. This ensures that when you get the object it is setup correctly for that app type
 -Started adding stuff that will aid in the integration of the encryption middleware
+-Added more utility classes like SmsSend which uses a Singleton design pattern and makes it easier to integrate encryption as all messages to the server will go through this class. Also I can log everything that goes through it
 
-Total Time: 6 hours
+Total Time: 8 hours
