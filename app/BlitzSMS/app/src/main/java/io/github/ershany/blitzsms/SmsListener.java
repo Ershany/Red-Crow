@@ -33,12 +33,9 @@ public class SmsListener extends BroadcastReceiver {
         };
     }
 
-    public static SmsListener getInstance() {
-        return singleton;
-    }
-
-    public static void setSMSHandle(OnSMS smsHandle) {
+    public static SmsListener getInstance(OnSMS smsHandle) {
         SmsListener.smsHandle = smsHandle;
+        return singleton;
     }
 
     @Override
@@ -76,11 +73,24 @@ public class SmsListener extends BroadcastReceiver {
                 }
 
                 if(!message.isEmpty()) {
-                    smsHandle.onSMS(message);
+                    smsHandle.onSMS(EncryptSMS(context, message));
                 }
             } catch(Exception e) {
                 Log.d("Exception - SmsListener", e.getMessage());
             }
+        }
+    }
+
+    private String EncryptSMS(Context context, String message) {
+        // Encrypt the message if the value in the app config is true
+        if(context.getResources().getBoolean(R.bool.encrypted)) {
+            Log.i("Encrypting MSG", message);
+
+            Log.i("Encrypted MSG" , message);
+            return message;
+        }
+        else {
+            return message;
         }
     }
 

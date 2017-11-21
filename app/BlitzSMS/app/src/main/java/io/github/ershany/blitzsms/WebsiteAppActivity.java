@@ -29,7 +29,6 @@ public class WebsiteAppActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.website_app_activity);
-        listener = SmsListener.getInstance();
 
         // Button listener
         Button button = findViewById(R.id.websiteButton);
@@ -44,7 +43,7 @@ public class WebsiteAppActivity extends Activity {
                 imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
 
                 // Send the SMS if the user entered a message
-                if(searchString == null || searchString.isEmpty()) return;
+                if(searchString.isEmpty()) return;
 
                 // Build the message for the server
                 int messageId = 0;
@@ -95,7 +94,7 @@ public class WebsiteAppActivity extends Activity {
                 updateWebsiteText(websiteText);
             }
         };
-        listener.setSMSHandle(handle);
+        listener = SmsListener.getInstance(handle);
         IntentFilter intentFilter = new IntentFilter("android.provider.Telephony.SMS_RECEIVED");
         intentFilter.setPriority(999);
         this.registerReceiver(listener, intentFilter);

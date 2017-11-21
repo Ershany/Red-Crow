@@ -36,7 +36,6 @@ public class SearchAppActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.search_app_activity);
         loadingComplete = false;
-        listener = SmsListener.getInstance();
 
         // Store the pointers to all of the textviews
         textViews = new TextView[numSearches * numViewsPerSearch];
@@ -76,7 +75,7 @@ public class SearchAppActivity extends Activity {
                 loadingComplete = true;
             }
         };
-        listener.setSMSHandle(handle);
+        listener = SmsListener.getInstance(handle);
         IntentFilter intentFilter = new IntentFilter("android.provider.Telephony.SMS_RECEIVED");
         intentFilter.setPriority(999);
         this.registerReceiver(listener, intentFilter);
@@ -94,7 +93,7 @@ public class SearchAppActivity extends Activity {
                 imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
 
                 // Send the SMS if the user entered a message
-                if(searchString == null || searchString.isEmpty()) return;
+                if(searchString.isEmpty()) return;
 
                 // Build the message for the server
                 int messageId = 0;

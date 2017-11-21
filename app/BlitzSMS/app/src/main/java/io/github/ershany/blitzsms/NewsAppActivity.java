@@ -33,7 +33,6 @@ public class NewsAppActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.news_app_activity);
-        listener = SmsListener.getInstance();
 
         // Store the pointers to all of the textviews
         textViews = new TextView[numSearches * numViewsPerSearch];
@@ -73,7 +72,7 @@ public class NewsAppActivity extends Activity {
                 Log.i("LoggingDate", Calendar.getInstance().getTime().toString());
             }
         };
-        listener.setSMSHandle(handle);
+        listener = SmsListener.getInstance(handle);
         IntentFilter intentFilter = new IntentFilter("android.provider.Telephony.SMS_RECEIVED");
         intentFilter.setPriority(999);
         this.registerReceiver(listener, intentFilter);

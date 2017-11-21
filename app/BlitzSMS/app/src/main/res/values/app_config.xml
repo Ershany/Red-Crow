@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!--    Server Settings -->
+    <bool name="encrypted">false</bool>
+
     <!--    Actual Server Number -->
-    <string name="server_phonenumber">6139099701</string>
+    <!--<string name="server_phonenumber">6139099701</string>-->
+    <string name="server_phonenumber">6136330139</string>
 </resources>

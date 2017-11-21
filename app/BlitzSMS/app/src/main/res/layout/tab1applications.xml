@@ -42,23 +42,23 @@
         android:layout_alignStart="@+id/websiteAppButton" />
 
     <ImageButton
-        android:id="@+id/mapsAppButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        app:srcCompat="@drawable/maps_app_image"
-        android:layout_below="@+id/newsAppButton"
-        android:layout_alignLeft="@+id/newsAppButton"
-        android:layout_alignStart="@+id/newsAppButton" />
-
-    <ImageButton
         android:id="@+id/lyricsAppButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         app:srcCompat="@drawable/lyrics_app_image"
-        android:layout_below="@+id/mapsAppButton"
-        android:layout_alignLeft="@+id/mapsAppButton"
-        android:layout_alignStart="@+id/mapsAppButton" />
+        android:layout_below="@+id/newsAppButton"
+        android:layout_alignLeft="@+id/newsAppButton"
+        android:layout_alignStart="@+id/newsAppButton" />
+
+    <ImageButton
+        android:id="@+id/mapsAppButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        app:srcCompat="@drawable/maps_app_image"
+        android:layout_below="@+id/lyricsAppButton"
+        android:layout_alignLeft="@+id/lyricsAppButton"
+        android:layout_alignStart="@+id/lyricsAppButton" />
 
 </RelativeLayout>

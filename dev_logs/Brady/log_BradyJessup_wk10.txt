@@ -1,4 +1,8 @@
 Achievements:
 -Added a lyrics app activity
+-Added the logic and resources for the lyrics app. It is now ready to integrate with the backend
+-Worked on the design and architecture of the project, more specificly I started designing the retry design pattern
+-Refactored the SMS listener and it's Singleton and Strategy design pattern, now when you request the instance, you must provide the handler you want it to use. This ensures that when you get the object it is setup correctly for that app type
+-Started adding stuff that will aid in the integration of the encryption middleware
 
-Total Time: 1 hours
+Total Time: 6 hours
