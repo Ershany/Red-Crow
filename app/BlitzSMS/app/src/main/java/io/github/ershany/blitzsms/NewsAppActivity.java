@@ -9,11 +9,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 import java.util.Calendar;
 
 import io.github.ershany.blitzsms.utils.OnSMS;
+import io.github.ershany.blitzsms.utils.SmsListener;
 
 /**
  * Created by Brady on 10/15/2017.

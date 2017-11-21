@@ -1,4 +1,4 @@
-package io.github.ershany.blitzsms;
+package io.github.ershany.blitzsms.utils;
 
 /**
  * Created by Brady on 9/21/2017.
@@ -14,7 +14,7 @@ import android.telephony.SmsManager;
 import android.telephony.SmsMessage;
 import android.util.Log;
 
-import io.github.ershany.blitzsms.utils.OnSMS;
+import io.github.ershany.blitzsms.R;
 
 public class SmsListener extends BroadcastReceiver {
 

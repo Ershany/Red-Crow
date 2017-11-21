@@ -17,6 +17,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import io.github.ershany.blitzsms.utils.OnSMS;
+import io.github.ershany.blitzsms.utils.SmsListener;
 
 public class LyricsAppActivity extends Activity {
 

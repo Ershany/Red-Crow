@@ -17,8 +17,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import io.github.ershany.blitzsms.utils.OnSMS;
-
-import static android.R.id.message;
+import io.github.ershany.blitzsms.utils.SmsListener;
 
 public class WebsiteAppActivity extends Activity {
 

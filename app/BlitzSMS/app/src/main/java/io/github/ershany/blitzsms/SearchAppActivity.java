@@ -19,6 +19,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import io.github.ershany.blitzsms.utils.OnSMS;
+import io.github.ershany.blitzsms.utils.SmsListener;
 
 public class SearchAppActivity extends Activity {
 
