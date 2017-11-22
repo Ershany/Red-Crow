@@ -4,5 +4,6 @@ Duties:
 	Namely the Strategy and Facade
 	Cleaned up server code base, a lot
 	Made a lyrics module
+	Added support for total of 62 error codes (0-9, a-z, A-Z)
 
-Total Time: 9 Hours
+Total Time: 10 Hours
