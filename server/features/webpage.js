@@ -3,6 +3,9 @@
 let request = require('request')
 
 function webpage(sms, done) {
+	if(!sms)
+		return done(1)
+
 	let link = sms
 	if(!link.startsWith('http'))
 		link = `http://${link}`;

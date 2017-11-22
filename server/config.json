@@ -27,6 +27,7 @@
 		"Result Too Large",
 		"Lyrics Not Found",
 		"News Currently Unavailable",
+		"Lyric Song or Artist cannot contain '/'",
 
 		"!!! CODES BELOW NOT IMPLEMENTED !!!",
 		"Message ID Problem",

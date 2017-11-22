@@ -3,6 +3,7 @@
 let log = require('../log')
 let config = require('../config')
 let MessagingResponse = require('twilio').twiml.MessagingResponse
+let convertErrorCode = require('../error_codes')
 
 const feat_dir = '../features/'
 const features = [
@@ -33,23 +34,23 @@ function getSMS(sms, done) {
 function replyWith(err, sms, str) {
 	// TODO: incomplete messages need to return with an appID & msgID ...
 	let twiml = new MessagingResponse()
-	let header = (err || 0)  + sms.app + sms.msg
 	
 	if(err) {
 		str = config.errors[err]
 		log.warn(config.errors[err])
 	}
 
+	let header = convertErrorCode(err)  + sms.app + sms.msg
 	twiml.message(header + str.toString())
 	return twiml.toString()
 }
 
 module.exports = function(req, res, next) {
-	res.writeHead(200, {'Content-Type': 'text/plain'}) // TODO: should be text/xml
+	res.writeHead(200, {'Content-Type': 'text/xml'}) // TODO: should be text/xml
 
 	const q = req.query.Body || ''
 	let sms = {
-		number: req.query.From || 'HTTP',
+		number: req.query.From || 'HTTP', // +16137954472
 		auth: q.charAt(0),
 		app : q.charAt(1),
 		msg : q.charAt(2),
@@ -63,7 +64,7 @@ module.exports = function(req, res, next) {
 			if(data.length > config.max_bytes && sms.number != 'HTTP') {
 				res.Body = replyWith(7, sms)
 			} else {
-				res.Body = data
+				res.Body = replyWith(null, sms, data)
 			}
 		}
 
@@ -71,7 +72,8 @@ module.exports = function(req, res, next) {
 		log.info(`Sent ${res.Body.length} bytes to ${sms.number}`)
 		if(req.Encryption)
 			next()
-		else
+		else {
 			res.end(res.Body)
+		}
 	})
 }

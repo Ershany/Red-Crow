@@ -4,7 +4,7 @@ let google = require('../google') // look into requiring the original
 let config = require('../config')
 
 function search(sms, done) {
-	if(!sms.body)
+	if(!sms)
 		return done(1)
 
 	let data = []
