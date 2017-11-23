@@ -3,7 +3,9 @@
 let log = require('../log')
 let config = require('../config')
 let MessagingResponse = require('twilio').twiml.MessagingResponse
-let convertErrorCode = require('../error_codes')
+let convertErrorCode = require('../util/error_codes')
+
+let fs = require('fs') // TODO: temporary for testing
 
 const feat_dir = '../features/'
 const features = [
@@ -46,7 +48,7 @@ function replyWith(err, sms, str) {
 }
 
 module.exports = function(req, res, next) {
-	res.writeHead(200, {'Content-Type': 'text/xml'}) // TODO: should be text/xml
+	// res.writeHead(200, {'Content-Type': 'text/xml'}) // TODO: should be text/xml
 
 	const q = req.query.Body || ''
 	let sms = {
@@ -61,19 +63,40 @@ module.exports = function(req, res, next) {
 		if(err) {
 			res.Body = replyWith(err, sms)
 		} else {
-			if(data.length > config.max_bytes && sms.number != 'HTTP') {
-				res.Body = replyWith(7, sms)
-			} else {
-				res.Body = replyWith(null, sms, data)
-			}
+			let compress = require('../encryption').compressLocal
+			compress(res.Body, (err, stdout, stderr) => {
+				console.log('err', err)
+				console.log('stdout', stdout)
+				console.log('stderr', stderr)
+				fs.readFile('./tmp/daft.txt.gz', (err, data) => {
+					if(err)
+						throw err
+					for(let i = 0; data[i] != undefined; i++)
+						console.log(i + 'th byte:', data[i], String.fromCharCode(data[i]))
+					let newstr = data.filter(function(b) {
+						return b > 65 && b < 91
+					})
+
+					console.log('filtered:', newstr.toString())
+					console.log('raw data:', data.toString())
+
+					res.end(replyWith(null, sms, data.toString()))
+					// res.sendFile('C:\\Users\\Michael\\Desktop\\Red-Crow\\server\\tmp\\daft.txt.gz')
+				})
+			})
+			// if(data.length > config.max_bytes && sms.number != 'HTTP') {
+			// 	res.Body = replyWith(7, sms)
+			// } else {
+			// 	res.Body = replyWith(null, sms, data)
+			// }
 		}
 
 		// TODO: sent data currently includes the xml portion 
-		log.info(`Sent ${res.Body.length} bytes to ${sms.number}`)
-		if(req.Encryption)
-			next()
-		else {
-			res.end(res.Body)
-		}
+		// log.info(`Sent ${res.Body.length} bytes to ${sms.number}`)
+		// if(req.Encryption)
+		// 	next()
+		// else {
+		// 	res.end(res.Body)
+		// }
 	})
 }
