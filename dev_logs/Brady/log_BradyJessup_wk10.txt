@@ -5,5 +5,6 @@ Achievements:
 -Refactored the SMS listener and it's Singleton and Strategy design pattern, now when you request the instance, you must provide the handler you want it to use. This ensures that when you get the object it is setup correctly for that app type
 -Started adding stuff that will aid in the integration of the encryption middleware
 -Added more utility classes like SmsSend which uses a Singleton design pattern and makes it easier to integrate encryption as all messages to the server will go through this class. Also I can log everything that goes through it
+-Redesigned the news UI and logic. To work with our new system. Now we are searching subreddits for news. So the user can select from a couple of subreddits and then request the news. So that means the packet format for sending a news request from the client to the server now includes the subreddit name. Also the packet format for sending the news data from the server to client, now just contains 8 different titles of the news articles.
 
-Total Time: 8 hours
+Total Time: 10 hours
