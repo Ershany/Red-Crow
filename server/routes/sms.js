@@ -3,7 +3,7 @@
 let log = require('../log')
 let config = require('../config')
 let MessagingResponse = require('twilio').twiml.MessagingResponse
-let convertErrorCode = require('../error_codes')
+let convertErrorCode = require('../util/error_codes')
 
 const feat_dir = '../features/'
 const features = [
