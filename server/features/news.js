@@ -37,7 +37,7 @@ function news(sms, done) {
 						else if(t.startsWith("Soft paywall")){
 							t = t.replace("Soft paywall",'')
 						}
-						console.log(t)
+						//console.log(t)
 					}
 					if (t != ""){
 						data.push({
@@ -51,7 +51,7 @@ function news(sms, done) {
 					tmp.push(a[i])
 				}
 			}
-			console.log(data)
+			//console.log(data)
 			// data.push({
 			// 	title: xxx.title, desc: xxx.desc
 			// })
