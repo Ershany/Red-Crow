@@ -1,6 +1,7 @@
 'use strict'
 
 let request = require('request')
+let html_strip = require('../util/html_strip')
 
 function webpage(sms, done) {
 	if(!sms)
@@ -12,8 +13,7 @@ function webpage(sms, done) {
 	// TODO: check if link is a valid url before doing the request
 	request(link, (err, res, body) => {
 		if(!err && res.statusCode === 200) {
-			let data = body.replace(/<.*?>/g, '').replace(/\t|\r|\n/g, '')
-			done(null, data)
+			done(null, html_strip(body))
 		} else {
 			done(4)
 		}

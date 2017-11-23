@@ -1,5 +1,5 @@
 function convertErrorCode(x) {
-	let y = x
+	let y = x || 0
 
 	if(x >= 36) {
 		x -= 36
