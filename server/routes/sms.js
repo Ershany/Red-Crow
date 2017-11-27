@@ -57,15 +57,16 @@ module.exports = function(req, res, next) {
 		body: q.substring(3)
 	}
 
+	// TODO: split this off into the final
 	getSMS(sms, (err, data) => {
 		if(err) {
 			res.Body = replyWith(err, sms)
 		} else {
-			if(data.length > config.max_bytes && sms.number != 'HTTP') {
-				res.Body = replyWith(7, sms)
-			} else {
-				res.Body = replyWith(null, sms, data)
-			}
+			// if(data.length > config.max_bytes && sms.number != 'HTTP') {
+				// res.Body = replyWith(7, sms)
+			// } else {
+				res.Body = replyWith(null, sms, data.slice(0, config.max_bytes))
+			// }
 		}
 
 		// TODO: sent data currently includes the xml portion 

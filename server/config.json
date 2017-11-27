@@ -3,6 +3,7 @@
 	"max_bytes": 2000,
 	"search_limit": 3,
 	"encryption": false,
+	"split_byte": "\n",
 	"database": {
 		"host": "localhost",
 		"db":   "smsblitz",
