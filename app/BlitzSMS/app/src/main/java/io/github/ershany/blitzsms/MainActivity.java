@@ -1,5 +1,7 @@
 package io.github.ershany.blitzsms;
 
+import android.content.Intent;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -10,6 +12,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.util.Log;
 
 import io.github.ershany.blitzsms.fragments.Tab1Applications;
 import io.github.ershany.blitzsms.fragments.Tab2History;
@@ -17,6 +20,9 @@ import io.github.ershany.blitzsms.fragments.Tab3Settings;
 
 public class MainActivity extends AppCompatActivity {
 
+    String[] historyArray = new String[10];
+    int historySize = 0;
+    int colour = 0xFF9F303F;
     //private AdView mAdView;
 
     /**
@@ -52,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
+        changecolor(colour);
     }
 
     @Override
@@ -114,5 +121,43 @@ public class MainActivity extends AppCompatActivity {
             return null;
         }
     }
+
+
+    public void changecolor(int color){
+
+        this.colour = color;
+
+        AppBarLayout barLayout =  (AppBarLayout) findViewById(R.id.appbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+
+        barLayout.setBackgroundColor(colour);
+        toolbar.setBackgroundColor(colour);
+    }
+
+    public void addHistory(String addition){
+
+        if(historySize==3){
+            historyArray[0] = historyArray[1];
+            historyArray[1] = historyArray[2];
+            historySize--;
+        }
+
+        historyArray[historySize] = addition;
+        historySize++;
+
+
+    }
+
+
+
+    public String[] getHistory(){
+        return historyArray;
+    }
+
+    public int getHistorySize(){
+        return historySize;
+    }
+
+
 
 }

@@ -11,6 +11,28 @@
     <TextView
         android:id="@+id/section_label"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:text="Choose a colour"/>
+
+    <Spinner
+        android:id="@+id/spinner1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:entries="@array/colour_names"
+        android:prompt="@string/colour_prompt"
+        android:layout_above="@+id/btnSubmit"
+        android:layout_marginBottom="157dp"
+        android:layout_marginTop="30dp"/>
+
+
+    <Button
+        android:id="@+id/btnSubmit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Submit"
+        android:layout_marginBottom="142dp"
+        android:layout_alignParentBottom="true"/>
+
+
 
 </RelativeLayout>

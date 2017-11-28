@@ -2,4 +2,11 @@
     <string name="app_name">Blitz SMS</string>
     <string name="action_settings">Settings</string>
     <string name="section_format">Hello World from section: %1$d</string>
+
+    <string name="colour_prompt">Choose a colour</string>
+    <string-array name="colour_names">
+        <item>Red</item>
+        <item>Green</item>
+        <item>Blue</item>
+    </string-array>
 </resources>

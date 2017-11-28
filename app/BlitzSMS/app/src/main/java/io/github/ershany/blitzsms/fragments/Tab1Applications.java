@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 
+import io.github.ershany.blitzsms.MainActivity;
 import io.github.ershany.blitzsms.LyricsAppActivity;
 import io.github.ershany.blitzsms.MapsAppActivity;
 import io.github.ershany.blitzsms.NewsAppActivity;
@@ -82,6 +83,9 @@ public class Tab1Applications extends Fragment {
                 Log.i("URL Received", data.getStringExtra("searchURL"));
                 Intent i = new Intent(getContext(), WebsiteAppActivity.class);
                 i.putExtra("searchURL", data.getStringExtra("searchURL"));
+
+                ((MainActivity) getActivity()).addHistory(data.getStringExtra("searchURL"));
+
                 startActivity(i);
             }
         }
