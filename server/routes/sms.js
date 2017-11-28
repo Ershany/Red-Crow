@@ -65,7 +65,7 @@ module.exports = function(req, res, next) {
 			// if(data.length > config.max_bytes && sms.number != 'HTTP') {
 				// res.Body = replyWith(7, sms)
 			// } else {
-				res.Body = replyWith(null, sms, data.slice(0, config.max_bytes))
+				res.Body = replyWith(null, sms, data.slice(0, sms.number === 'HTTP' ? data.length : config.max_bytes))
 			// }
 		}
 
