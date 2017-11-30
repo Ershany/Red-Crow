@@ -1,8 +1,7 @@
 'use strict'
 
 let exec = require('child_process').exec
-
-const bin_dir = 'java_files.' // ./bin/ do i need to specify package for this to work
+const bin_dir = 'java_files.'
 
 function decode(str, num, done) {	
 	str = str.replace(/"/g, '\'')
@@ -23,28 +22,30 @@ function encode(str, num, done) {
 }
 
 function decrypt(req, res, next) {
+	if(!req.Encryption)
+		return next()
+
 	// console.log('encrypted shit you sent:', req.query.Body)
-	if(req.Encryption) {
-		decode(req.query.Body, 999, (err, stdout, stderr) => {
-			// console.log('shit you actually sent:', stdout)
-			req.query.Body = stdout
-			next()
-		})
-	} else
+	decode(req.query.Body, 999, (err, stdout, stderr) => {
+		if(err)
+			throw err
+		// console.log('shit you actually sent:', stdout)
+		req.query.Body = stdout
 		next()
+	})
 }
 
 function encrypt(req, res, next) {
+	if(!req.Encryption)
+		return next()
+
 	// console.log('shit you want:', res.Body)
-	// TODO: don't encode the xml tags
 	encode(res.Body, 999, (err, stdout, stderr) => {
+		if(err)
+			throw err
 		// console.log('encrypted shit you get:', stdout)
-		// console.log(res.Body.substring(0, 57))
-		// console.log(stdout.slice(58, -23))
-		// console.log(res.Body.slice(-21))
-		// res.end(res.Body.substring(0, 57) + stdout.slice(58, -23) + res.Body.slice(-21))
-		// log.info('Sent', (header + str.toString()).length, 'bytes to', number)
-		res.end(stdout)
+		res.Body = stdout
+		next()
 	})
 }
 

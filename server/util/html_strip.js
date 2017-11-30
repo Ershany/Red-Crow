@@ -1,6 +1,11 @@
+'use strict'
+
+let cheerio = require('cheerio')
+
 module.exports = function(html) {
-	return html.replace(/<.*?>/g, '')
+	let $ = cheerio.load(html)
+	return $('body').text()
+		.replace(/(\n\s*)+/g, '\n')
 		.replace(/\t|\r/g, '')
-		.replace(/(\n)+/g, '\n')
 		.replace(/( )+/g, ' ')
 }

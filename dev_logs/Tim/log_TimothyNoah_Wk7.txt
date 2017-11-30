@@ -1,0 +1,7 @@
+Duties:
+  Worked on the server end of the app.
+  Found an npm module that bypasses the capcha that happens with google searches
+  Helped get a working prototype with Brady and Michael
+  Finished the D2 paper
+
+Total Time: 13 hours

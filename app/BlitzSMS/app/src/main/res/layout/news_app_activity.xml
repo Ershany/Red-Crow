@@ -23,6 +23,25 @@
 
     </android.support.v7.widget.Toolbar>
 
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="5dp"
+        android:paddingEnd="5dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:paddingStart="5dp"
+        android:paddingTop="5dp"
+        android:text="Select the type of news:"
+        android:textAlignment="viewStart"
+        android:textStyle="bold" />
+
+    <Spinner
+        android:id="@+id/newsSpinner"
+        android:layout_width="match_parent"
+        android:layout_height="41dp" />
+
     <Button
         android:id="@+id/newsButton"
         android:layout_width="match_parent"
@@ -52,7 +71,6 @@
             android:orientation="vertical" >
 
             <LinearLayout
-                android:id="@+id/newsLayout1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
@@ -61,24 +79,15 @@
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
                 android:paddingStart="5dp"
-                android:paddingTop="15dp">
+                android:paddingTop="15dp" >
 
                 <TextView
-                    android:id="@+id/titleTextView1"
+                    android:id="@+id/newsTitle1"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textColor="@color/colorPrimary"/>
-
-                <TextView
-                    android:id="@+id/descTextView1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"/>
+                    android:layout_height="wrap_content" />
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/newsLayout2"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
@@ -87,24 +96,15 @@
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
                 android:paddingStart="5dp"
-                android:paddingTop="15dp">
+                android:paddingTop="15dp" >
 
                 <TextView
-                    android:id="@+id/titleTextView2"
+                    android:id="@+id/newsTitle2"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textColor="@color/colorPrimary"/>
-
-                <TextView
-                    android:id="@+id/descTextView2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"/>
+                    android:layout_height="wrap_content" />
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/newsLayout3"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
@@ -113,21 +113,100 @@
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
                 android:paddingStart="5dp"
-                android:paddingTop="15dp">
+                android:paddingTop="15dp" >
 
                 <TextView
-                    android:id="@+id/titleTextView3"
+                    android:id="@+id/newsTitle3"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textColor="@color/colorPrimary"/>
-
-                <TextView
-                    android:id="@+id/descTextView3"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"/>
+                    android:layout_height="wrap_content" />
             </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:paddingBottom="15dp"
+                android:paddingEnd="5dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:paddingStart="5dp"
+                android:paddingTop="15dp" >
+
+                <TextView
+                    android:id="@+id/newsTitle4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:paddingBottom="15dp"
+                android:paddingEnd="5dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:paddingStart="5dp"
+                android:paddingTop="15dp" >
+
+                <TextView
+                    android:id="@+id/newsTitle5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:paddingBottom="15dp"
+                android:paddingEnd="5dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:paddingStart="5dp"
+                android:paddingTop="15dp" >
+
+                <TextView
+                    android:id="@+id/newsTitle6"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:paddingBottom="15dp"
+                android:paddingEnd="5dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:paddingStart="5dp"
+                android:paddingTop="15dp" >
+
+                <TextView
+                    android:id="@+id/newsTitle7"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:paddingBottom="15dp"
+                android:paddingEnd="5dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:paddingStart="5dp"
+                android:paddingTop="15dp" >
+
+                <TextView
+                    android:id="@+id/newsTitle8"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
         </LinearLayout>
+
     </ScrollView>
 </LinearLayout>

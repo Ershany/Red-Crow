@@ -8,7 +8,8 @@
     "java": "javac ../encryption/*.java -d ./",
     "start": "node app.js",
     "fk": "mysql < ./db_scripts/fk_setup.sql",
-    "todo": "grep -R --exclude-dir=node_modules TODO --exclude=package.json"
+    "todo": "grep -R 'TODO' --exclude-dir=node_modules --include=\\*.js",
+    "strict": "grep -RL 'use strict' --exclude-dir=node_modules --include=\\*.js"
   },
   "repository": {
     "type": "git",

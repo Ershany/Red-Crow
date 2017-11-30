@@ -1,0 +1,6 @@
+Duties:
+  Worked on the server-side of the app
+  Tested the encryption
+  started figuring out fixing the capcha.
+
+Total Time: 3 hours

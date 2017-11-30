@@ -1,0 +1,6 @@
+Duties:
+  fixed up the encryption files.
+  started on the news app
+
+
+Total Time: 3 hours
