@@ -1,3 +1,5 @@
+'use strict'
+
 function convertErrorCode(x) {
 	let y = x || 0
 

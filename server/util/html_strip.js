@@ -1,3 +1,5 @@
+'use strict'
+
 let cheerio = require('cheerio')
 
 module.exports = function(html) {
