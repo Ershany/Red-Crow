@@ -33,20 +33,16 @@ function getSMS(sms, done) {
 
 function replyWith(err, sms, str) {
 	// TODO: incomplete messages need to return with an appID & msgID ...
-	let twiml = new MessagingResponse()
-	
 	if(err) {
 		str = config.errors[err]
 		log.warn(config.errors[err])
 	}
 
 	let header = convertErrorCode(err)  + sms.app + sms.msg
-	twiml.message(header + str.toString())
-	return twiml.toString()
+	return header + str.toString()
 }
 
-module.exports = function(req, res, next) {
-	res.writeHead(200, {'Content-Type': 'text/xml'}) // TODO: should be text/xml
+function smsHandler(req, res, next) {
 
 	const q = req.query.Body || ''
 	let sms = {
@@ -68,13 +64,18 @@ module.exports = function(req, res, next) {
 				res.Body = replyWith(null, sms, data.slice(0, sms.number === 'HTTP' ? data.length : config.max_bytes))
 			// }
 		}
-
-		// TODO: sent data currently includes the xml portion 
-		log.info(`Sent ${res.Body.length} bytes to ${sms.number}`)
-		if(req.Encryption)
-			next()
-		else {
-			res.end(res.Body)
-		}
+		req.Number = sms.number
+		next()
 	})
 }
+
+function smsSender(req, res, next) {
+	res.set('Content-Type', 'text/xml') // TODO: should be text/xml
+	log.info(`Sent ${res.Body.length} bytes to ${req.Number}`) // TODO: this is sketchy
+	
+	let twiml = new MessagingResponse()
+	twiml.message(res.Body)
+	res.end(twiml.toString())
+}
+
+module.exports = { smsHandler, smsSender }

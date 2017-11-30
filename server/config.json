@@ -4,6 +4,7 @@
 	"search_limit": 3,
 	"news_limit": 8,
 	"encryption": false,
+	"compression": false,
 	"split_byte": "\n",
 	"database": {
 		"host": "localhost",
