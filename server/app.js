@@ -17,9 +17,6 @@ let app = express()
 dbms.connect(config.database)
 
 app.get('/sms', (req, res, next) => {
-	req.Encryption = config.encryption // req.SMS.crpt
-	req.Compression = config.compression // req.SMS.gzip
-
 	req.SMS = new TextMessage(req.query)
 	res.SMS = new TextMessage()
 

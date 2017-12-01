@@ -22,29 +22,25 @@ function encode(str, num, done) {
 }
 
 function decrypt(req, res, next) {
-	if(!req.Encryption)
+	if(req.SMS.crpt == 0)
 		return next()
 
-	// console.log('encrypted shit you sent:', req.query.Body)
-	decode(req.query.Body, 999, (err, stdout, stderr) => {
+	decode(req.SMS.body, 999, (err, stdout, stderr) => {
 		if(err)
 			throw err
-		// console.log('shit you actually sent:', stdout)
-		req.query.Body = stdout
+		req.SMS.body = stdout
 		next()
 	})
 }
 
 function encrypt(req, res, next) {
-	if(!req.Encryption)
+	if(req.SMS.crpt == 0)
 		return next()
 
-	// console.log('shit you want:', res.Body)
-	encode(res.Body, 999, (err, stdout, stderr) => {
+	encode(res.SMS.body, 999, (err, stdout, stderr) => {
 		if(err)
 			throw err
-		// console.log('encrypted shit you get:', stdout)
-		res.Body = stdout
+		res.SMS.body = stdout
 		next()
 	})
 }

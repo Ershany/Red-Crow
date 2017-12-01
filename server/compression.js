@@ -28,7 +28,7 @@ function gzipCompress(str, file, done) {
 
 function compress(req, res, next) {
 	// TODO: get a better way to skip this middleware
-	if(!req.Compression || res.SMS.auth != 0) // res.SMS.auth in this case is the error code
+	if(req.SMS.gzip == 0 || res.SMS.auth != 0) // res.SMS.auth in this case is the error code
 		return next()
 
 	// TODO: better way to name these files (application specific?)

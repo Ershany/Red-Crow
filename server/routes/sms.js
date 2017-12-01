@@ -14,7 +14,7 @@ const features = [
 ]
 
 function getSMS(sms, done) {
-	log.info('SMS:', sms)
+	log.info('SMS >', sms.print())
 
 	if(!config.whitelist.includes(sms.number))
 		return done(6)
@@ -22,7 +22,7 @@ function getSMS(sms, done) {
 	if(!sms.hasCompleteHeader())
 		return done(1)
 
-	if(sms.auth != 'E')
+	if(sms.auth != config.auth_code)
 		return done(2)
 
 	if(!(sms.app in features))

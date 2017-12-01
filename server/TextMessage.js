@@ -1,4 +1,5 @@
 const attr = ['auth', 'app', 'msg', 'crpt', 'gzip'] // TODO: make this a static const of TextMessage
+const apps = ['Search', 'Website', 'News', 'Lyrics']
 const hsize = attr.length
 
 class TextMessage {
@@ -44,6 +45,20 @@ class TextMessage {
 			str += this[i]
 
 		str += this.body
+		return str
+	}
+
+	print() {
+		let str = ''
+
+		str += this.number + ': '
+		str += apps[this.app]
+		if(this.crpt != 0)
+			str += ' [CRPT]'
+		if(this.gzip != 0)
+			str += ' [GZIP]'
+
+		str += ' {' + this.body + '}'
 		return str
 	}
 }
