@@ -15,9 +15,18 @@ let app = express()
 dbms.connect(config.database)
 
 app.get('/sms', (req, res, next) => {
-	req.Encryption = config.encryption
+	req.Encryption = config.encryption // Or add a header character to have this info
 	req.Compression = config.compression
-	// TODO: do all variable setup here, add sms object to req or res here
+
+	const q = req.query.Body || ''
+	req.SMS = {
+		number: req.query.From || 'HTTP',
+		auth: q.charAt(0),
+		app : q.charAt(1),
+		msg : q.charAt(2),
+		body: q.substring(3)
+	}
+
 	next()
 }, encryption.decrypt, sms.smsHandler, compression.compress, encryption.encrypt, sms.smsSender)
 

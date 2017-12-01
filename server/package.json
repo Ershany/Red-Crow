@@ -22,10 +22,9 @@
   },
   "homepage": "https://github.com/Ershany/Red-Crow#readme",
   "dependencies": {
+    "base91": "0.0.5",
     "cheerio": "^1.0.0-rc.2",
-    "compression": "^1.7.1",
     "express": "^4.15.4",
-    "google": "^2.1.0",
     "mysql": "^2.14.1",
     "orm": "^4.0.1",
     "twilio": "^3.6.7",

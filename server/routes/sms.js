@@ -43,17 +43,8 @@ function replyWith(err, sms, str) {
 }
 
 function smsHandler(req, res, next) {
+	const sms = req.SMS
 
-	const q = req.query.Body || ''
-	let sms = {
-		number: req.query.From || 'HTTP', // +16137954472
-		auth: q.charAt(0),
-		app : q.charAt(1),
-		msg : q.charAt(2),
-		body: q.substring(3)
-	}
-
-	// TODO: split this off into the final
 	getSMS(sms, (err, data) => {
 		if(err) {
 			res.Body = replyWith(err, sms)
@@ -64,14 +55,13 @@ function smsHandler(req, res, next) {
 				res.Body = replyWith(null, sms, sms.number === 'HTTP' ? data : data.slice(0, config.max_bytes))
 			// }
 		}
-		req.Number = sms.number
 		next()
 	})
 }
 
 function smsSender(req, res, next) {
 	res.set('Content-Type', 'text/xml') // TODO: should be text/xml
-	log.info(`Sent ${res.Body.length} bytes to ${req.Number}`) // TODO: this is sketchy
+	log.info(`Sent ${res.Body.length} bytes to ${req.SMS.number}`)
 	
 	let twiml = new MessagingResponse()
 	twiml.message(res.Body)
