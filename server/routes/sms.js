@@ -19,7 +19,7 @@ function getSMS(sms, done) {
 	if(!config.whitelist.includes(sms.number))
 		return done(6)
 
-	if(!sms.msg)
+	if(!sms.hasCompleteHeader())
 		return done(1)
 
 	if(sms.auth != 'E')
@@ -34,11 +34,12 @@ function getSMS(sms, done) {
 function replyWith(err, sms, str) {
 	// TODO: incomplete messages need to return with an appID & msgID ...
 	if(err) {
-		str = config.errors[err]
+		// This should only change the str if one wasn't given and it errors
+		str = str || config.errors[err]
 		log.warn(config.errors[err])
 	}
 
-	let header = convertErrorCode(err)  + sms.app + sms.msg
+	let header = convertErrorCode(err)  + sms.app + sms.msg + sms.crpt + sms.gzip
 	return header + str.toString()
 }
 
@@ -46,13 +47,14 @@ function smsHandler(req, res, next) {
 	const sms = req.SMS
 
 	getSMS(sms, (err, data) => {
+		// res.SMS.build(replyWith(null, sms, sms.number === 'HTTP' ? data : data.slice(0, config.max_bytes)))
 		if(err) {
-			res.Body = replyWith(err, sms)
+			res.SMS.build(replyWith(err, sms))
 		} else {
+			res.SMS.build(replyWith(null, sms, data.slice(0, config.max_bytes)))
 			// if(data.length > config.max_bytes && sms.number != 'HTTP') {
 				// res.Body = replyWith(7, sms)
 			// } else {
-				res.Body = replyWith(null, sms, sms.number === 'HTTP' ? data : data.slice(0, config.max_bytes))
 			// }
 		}
 		next()
@@ -61,10 +63,12 @@ function smsHandler(req, res, next) {
 
 function smsSender(req, res, next) {
 	res.set('Content-Type', 'text/xml') // TODO: should be text/xml
-	log.info(`Sent ${res.Body.length} bytes to ${req.SMS.number}`)
+	const reply = res.SMS.toString()
+	log.info(`Sent ${reply.length} bytes to ${req.SMS.number}`)
 	
 	let twiml = new MessagingResponse()
-	twiml.message(res.Body)
+
+	twiml.message(reply) // res.Body
 	res.end(twiml.toString())
 }
 

@@ -49,40 +49,4 @@ function encrypt(req, res, next) {
 	})
 }
 
-let fs = require('fs') // TODO: remove this testing dependency
-const file = 'daft.txt'
-
-function compressLocal(str, done) {
-	// write $file to a file
-	fs.writeFile(file, str, (err) => {
-		if(err)
-			throw err
-		const cmd = `java ${bin_dir}GzipProgram -c "${file}"`
-		exec(cmd, done)
-	})
-}
-
-function compress(req, res, next) {
-	// console.log('uncompressed shit you want:', res.Body)
-	compressLocal(res.Body, (err, stdout, stderr) => {
-		// console.log('compressed shit you get:', stdout)
-		res.end(stdout)
-	})
-}
-
-// compressLocal(file, (err) => { // removed stdout, stderr (not used)
-// 	if(err)
-// 		throw err
-
-// 	// gz file is written to the local tmp folder
-// 	// console.log('stdout:', stdout)
-// 	// console.log('stderr:', stderr)
-// 	fs.readFile('./tmp/' + file + '.gz', (err, data) => {
-// 		if(err)
-// 			throw err
-
-// 		console.log('here:', data.toString(), ':end')
-// 	})
-// })
-
-module.exports = { decrypt, encrypt, compressLocal }
+module.exports = { decrypt, encrypt }
