@@ -34,8 +34,7 @@ function getSMS(sms, done) {
 function replyWith(err, sms, str) {
 	// TODO: incomplete messages need to return with an appID & msgID ...
 	if(err) {
-		// This should only change the str if one wasn't given and it errors
-		str = str || config.errors[err]
+		str = config.errors[err]
 		log.warn(config.errors[err])
 	}
 
@@ -52,10 +51,6 @@ function smsHandler(req, res, next) {
 			res.SMS.build(replyWith(err, sms))
 		} else {
 			res.SMS.build(replyWith(null, sms, data.slice(0, config.max_bytes)))
-			// if(data.length > config.max_bytes && sms.number != 'HTTP') {
-				// res.Body = replyWith(7, sms)
-			// } else {
-			// }
 		}
 		next()
 	})
