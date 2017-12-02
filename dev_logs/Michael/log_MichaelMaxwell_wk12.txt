@@ -1,0 +1,7 @@
+Duties:
+	Created a TextMessage class
+	Added 2 characters to header, encryption and compression
+	Made changes to routing to use the new req.SMS and res.SMS
+	Added some skeleton test programs, will need to fill out functionality
+
+Total Time: 4 Hours

@@ -42,11 +42,4 @@ function compress(req, res, next) {
 	})
 }
 
-// TODO: add this to a test file
-// gzipCompress('compress me like you suppress your emotions', 'sad.txt', (err, data) => {
-// 	if(err)
-// 		throw err
-// 	console.log(data)
-// })
-
 module.exports = { compress }

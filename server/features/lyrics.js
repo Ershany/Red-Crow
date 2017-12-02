@@ -27,14 +27,4 @@ function lyrics(sms, done) {
 	})
 }
 
-function lyricCB(err, data) {
-	if(err)
-		throw err
-	console.log(data)
-}
-
-// TODO: move this to testing
-// lyrics('Russ/Psycho, Pt. 2', lyricCB)
-// lyrics('XXXTentacion/Depression & Obsession', lyricCB)
-
 module.exports = lyrics
