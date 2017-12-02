@@ -6,8 +6,8 @@ const bin_dir = 'java_files.'
 function decode(str, num, done) {	
 	str = str.replace(/"/g, '\'')
 
+	// TODO: make encryption program in this format 'java Encryption -d str num'
 	const cmd = `java ${bin_dir}Decrypt ${num} "${str}"`
-	// let cmd = `java ${bin_dir}Encryption -d "${str}" ${num}`
 	exec(cmd, done)
 }
 
@@ -17,10 +17,10 @@ function encode(str, num, done) {
 	// TODO: java doesn't play nice with unicode in an argument, replace character
 
 	const cmd = `java ${bin_dir}Encrypt ${num} "${str}"`
-	// let cmd = `java ${bin_dir}Encryption -e "${str}" ${num}`
 	exec(cmd, done)
 }
 
+// TODO: replace 999 with req.SMS.number.slice(-3)
 function decrypt(req, res, next) {
 	if(req.SMS.crpt == 0)
 		return next()

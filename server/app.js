@@ -26,7 +26,3 @@ app.get('/sms', (req, res, next) => {
 app.listen(PORT, () => {
 	log.info('Express @ localhost:%d', PORT)
 })
-
-// TODO: check if encryption is set in message header
-// TODO: replace 999 with req.query.From (phone number)
-// TODO: bypass encryption on when number is HTTP
