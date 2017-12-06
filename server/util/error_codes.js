@@ -14,8 +14,4 @@ function convertErrorCode(x) {
 	return y
 }
 
-// TODO: move to a testing file
-// for(let i = 0; i < 62; i++)
-// 	console.log(convertErrorCode(i))
-
 module.exports = convertErrorCode

@@ -1,34 +1,28 @@
 package java_files;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 
 public class GzipProgram {
 
 	public static void main(String... args) throws IOException {
-		if(args.length != 2) {
-			System.out.println("Proper Usage is: java GzipProgram [-c -d] press-this-file");
+		if(args.length != 3) {
+			System.out.println("Proper Usage is: java GzipProgram [-c -d] input output");
 			System.exit(0);
 		}
 
-		final String tmp = "./tmp/";
+		String flag = args[0];
 
-		File example = new File(tmp + args[1]);
-		File output = new File(tmp + args[1] + ".gz");
-		File decompressed = new File(tmp + "d-" + args[1]);
+		File input = new File(args[1]);
+		File output = new File(args[2]);
 
-		if(args[0].equals("-c")) {
+		if(flag.equals("-c")) {
 			System.out.println("Compressing " + args[1]);
-			GzipJava.compressGZIP(example, output);
-			// try(BufferedReader br = new BufferedReader(new FileReader(tmp + args[1] + ".gz"))) {
-			// 	for(String line; (line = br.readLine()) != null;)
-			// 		System.out.println(line);
-			// }
-		} else if(args[0].equals("-d")) {
+			GzipJava.compressGZIP(input, output);
+			System.out.println("Finished " + args[2]);
+		} else if(flag.equals("-d")) {
 			System.out.println("Decompressing " + args[1]);
-			GzipJava.decompressGzip(output, decompressed);
+			GzipJava.decompressGZIP(input, output);
+			System.out.println("Finished " + args[2]);
 		}
 	}
 }

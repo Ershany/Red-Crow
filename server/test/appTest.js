@@ -13,6 +13,8 @@ let should = chai.should()
 
 chai.use(chaiHttp)
 
+// TODO: use this for only integration testing, unit testing for applications (search, lyrics, etc.)
+//       to be done in their respective test files
 describe('App', () => {
 	describe('/GET sms', () => {
 

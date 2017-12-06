@@ -6,8 +6,8 @@ const bin_dir = 'java_files.'
 function decode(str, num, done) {	
 	str = str.replace(/"/g, '\'')
 
+	// TODO: make encryption program in this format 'java Encryption -d str num'
 	const cmd = `java ${bin_dir}Decrypt ${num} "${str}"`
-	// let cmd = `java ${bin_dir}Encryption -d "${str}" ${num}`
 	exec(cmd, done)
 }
 
@@ -17,34 +17,30 @@ function encode(str, num, done) {
 	// TODO: java doesn't play nice with unicode in an argument, replace character
 
 	const cmd = `java ${bin_dir}Encrypt ${num} "${str}"`
-	// let cmd = `java ${bin_dir}Encryption -e "${str}" ${num}`
 	exec(cmd, done)
 }
 
+// TODO: replace 999 with req.SMS.number.slice(-3)
 function decrypt(req, res, next) {
-	if(!req.Encryption)
+	if(req.SMS.crpt == 0)
 		return next()
 
-	// console.log('encrypted shit you sent:', req.query.Body)
-	decode(req.query.Body, 999, (err, stdout, stderr) => {
+	decode(req.SMS.body, 999, (err, stdout, stderr) => {
 		if(err)
 			throw err
-		// console.log('shit you actually sent:', stdout)
-		req.query.Body = stdout
+		req.SMS.body = stdout
 		next()
 	})
 }
 
 function encrypt(req, res, next) {
-	if(!req.Encryption)
+	if(req.SMS.crpt == 0)
 		return next()
 
-	// console.log('shit you want:', res.Body)
-	encode(res.Body, 999, (err, stdout, stderr) => {
+	encode(res.SMS.body, 999, (err, stdout, stderr) => {
 		if(err)
 			throw err
-		// console.log('encrypted shit you get:', stdout)
-		res.Body = stdout
+		res.SMS.body = stdout
 		next()
 	})
 }

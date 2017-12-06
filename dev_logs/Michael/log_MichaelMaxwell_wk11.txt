@@ -1,0 +1,9 @@
+Duties:
+	Wrote Gzip program and included library in Java
+	Implemented optional compression on the server using the java program
+	Server now saves response message it's gzip to files
+		Potentially use these for cacheing results in the future
+	Seperated the sms handler, and the sms sender
+	Research on other text messaging service: Plivo
+
+Total Time: 12 Hours

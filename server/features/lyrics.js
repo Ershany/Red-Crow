@@ -15,7 +15,7 @@ function lyrics(sms, done) {
 
 	// TODO: check if link is a valid url before doing the request
 	// for example more than one '/'  (might change the seperating character)
-	console.log('lyric request to', link)
+	// console.log('lyric request to', link)
 	request(link, (err, res, body) => {
 		if(!err && res.statusCode === 200) {
 			let $ = cheerio.load(body)
@@ -26,15 +26,5 @@ function lyrics(sms, done) {
 		}
 	})
 }
-
-function lyricCB(err, data) {
-	if(err)
-		throw err
-	console.log(data)
-}
-
-// TODO: move this to testing
-// lyrics('Russ/Psycho, Pt. 2', lyricCB)
-// lyrics('XXXTentacion/Depression & Obsession', lyricCB)
 
 module.exports = lyrics

@@ -1,10 +1,9 @@
 {
 	"port": 9001,
-	"max_bytes": 2000,
+	"max_bytes": 1400,
 	"search_limit": 3,
 	"news_limit": 8,
-	"encryption": false,
-	"compression": false,
+	"auth_code": "E",
 	"split_byte": "\n",
 	"database": {
 		"host": "localhost",
