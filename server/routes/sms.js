@@ -63,7 +63,7 @@ function smsSender(req, res, next) {
 	
 	let twiml = new MessagingResponse()
 
-	twiml.message(reply) // res.Body
+	twiml.message(reply)
 	res.end(twiml.toString())
 }
 

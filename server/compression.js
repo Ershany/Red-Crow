@@ -4,7 +4,7 @@ let fs = require('fs')
 let base91 = require('base91')
 let exec = require('child_process').exec
 
-const bin_dir = 'java_files.'
+const bin_dir = 'bin.'
 
 // TODO: make it work with new lines, better yet change newlines to something else
 function gzipCompress(str, file, done) {
@@ -28,7 +28,8 @@ function gzipCompress(str, file, done) {
 
 function compress(req, res, next) {
 	// TODO: get a better way to skip this middleware
-	if(req.SMS.gzip == 0 || res.SMS.auth != 0) // res.SMS.auth in this case is the error code
+	// res.SMS.auth in this case is the error code
+	if(!req.SMS.isCompressed() || res.SMS.hasError())
 		return next()
 
 	// TODO: better way to name these files (application specific?)

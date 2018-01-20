@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "test": "mocha",
-    "java": "javac ../encryption/*.java -d ./",
+    "java": "javac ../gzip/*.java -d ./",
     "start": "node app.js",
     "fk": "mysql < ./db_scripts/fk_setup.sql",
     "todo": "grep -R 'TODO' --exclude-dir=node_modules --include=\\*.js",
