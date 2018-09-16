@@ -1,6 +1,9 @@
 const attr = ['auth', 'app', 'msg', 'gzip'] // TODO: make this a static const of TextMessage
 const apps = ['Search', 'Website', 'News', 'Lyrics']
 const hsize = attr.length
+const maxsize = 1400
+
+let error_codes = require('./util/error_codes')
 
 class TextMessage {
 
@@ -20,11 +23,13 @@ class TextMessage {
 			this[attr[i]] = str.charAt(i)
 	}
 
-	// 83000Lyrics-Not-Found
+	// 8300Lyrics-Not-Found
 	build(str) {
+		let header =  str.slice(0, hsize)
+		let s = str.substring(hsize)
 		this.number = '+16138214472'
-		this.buildHeader(str.slice(0, hsize))
-		this.body = str.substring(hsize)
+		this.buildHeader(header)
+		this.body = s
 	}
 
 	hasCompleteHeader() {
@@ -40,11 +45,12 @@ class TextMessage {
 	toString() {
 		let str = ''
 
-		for(let i of attr)
+		for(let i of attr) {
 			str += this[i]
+		}
 
 		str += this.body
-		return str
+		return str // TODO: slice off anything longer than maxsize
 	}
 
 	print() {

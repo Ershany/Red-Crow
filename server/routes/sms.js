@@ -27,7 +27,7 @@ function getSMS(sms, done) {
 
 	if(!(sms.app in features))
 		return done(3)
-		
+
 	return features[sms.app](sms.body, done)
 }
 
@@ -38,7 +38,7 @@ function replyWith(err, sms, str) {
 		log.warn(config.errors[err])
 	}
 
-	let header = convertErrorCode(err)  + sms.app + sms.msg + sms.crpt + sms.gzip
+	let header = convertErrorCode(err)  + sms.app + sms.msg + sms.gzip
 	return header + str.toString()
 }
 
@@ -60,7 +60,7 @@ function smsSender(req, res, next) {
 	res.set('Content-Type', 'text/xml') // TODO: should be text/xml
 	const reply = res.SMS.toString()
 	log.info(`Sent ${reply.length} bytes to ${req.SMS.number}`)
-	
+
 	let twiml = new MessagingResponse()
 
 	twiml.message(reply)

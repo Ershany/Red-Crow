@@ -37,10 +37,10 @@ function compress(req, res, next) {
 	gzipCompress(res.SMS.body, `${req.SMS.app}/${filename}`, (err, data) => {
 		if(err)
 			throw err
-		// TODO: only compress if the size is smaller, reset req.Compression to false
+		// TODO: only compress if the size is smaller, reset req.SMS.gzip to false
 		res.SMS.body = base91.encode(data) // data.toString('base64')
 		next()
 	})
 }
 
-module.exports = { compress }
+module.exports = compress

@@ -20,7 +20,7 @@ app.get('/sms', (req, res, next) => {
 	res.SMS = new TextMessage()
 
 	next()
-}, sms.smsHandler, compression.compress, sms.smsSender)
+}, sms.smsHandler, compression, sms.smsSender)
 
 app.listen(PORT, () => {
 	log.info('Express @ localhost:%d', PORT)
